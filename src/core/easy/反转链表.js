@@ -25,6 +25,6 @@ export default function () {
       current = next//最后会是null
     }
     return prev
-};
+ };
 }
 
