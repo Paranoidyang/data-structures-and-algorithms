@@ -5,8 +5,8 @@
 /**
  * 解题分析：一个队列负责存储，另一个队列负责记录最大值（队列头部始终是最大值）
  */
- import Queue from '../../base/queue'
- import Deque from '../../base/deque'
+ import Queue from '@/base/queue'
+ import Deque from '@/base/deque'
 
 
 export default function() {
