@@ -8,17 +8,16 @@
     <a href="https://v3.vuejs.org/" target="_blank">Vue 3 Documentation</a>
   </p>
   <!-- <button type="button" @click="state.count++">count is: {{ state.count }}</button> -->
-  <p>不积跬步，无以至千里；不积小流，无以成江海。</p>
 </template>
 
 <script setup>
-import { defineProps, reactive } from 'vue'
+import { defineProps, reactive } from "vue";
 
 defineProps({
-  msg: String
-})
+  msg: String,
+});
 
-const state = reactive({ count: 0 })
+const state = reactive({ count: 0 });
 </script>
 
 <style scoped>

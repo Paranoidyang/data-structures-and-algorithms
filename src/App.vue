@@ -1,10 +1,10 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="你好，数据结构与算法！" />
+  <HelloWorld msg="data structures and algorithms" />
 </template>
 
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from "./components/HelloWorld.vue";
 </script>
 
 <style>
