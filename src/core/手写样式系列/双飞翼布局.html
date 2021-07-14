@@ -1,0 +1,63 @@
+<!-- 三栏利用 float 和 负margin 并列
+在中间栏加一层容器，利用 margain 给两栏腾空间 -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  * {
+    padding: 0;
+    margin: 0;
+  }
+
+  .wrapper {
+    min-width: 630px;
+  }
+
+  .wrapper .container {
+    float: left;
+    width: 100%;
+  }
+
+  .wrapper .container .main {
+    height: 300px;
+    background: red;
+    margin: 0 600px 0 30px;
+  }
+
+  .wrapper .left {
+    float: left;
+    width: 30px;
+    background: blue;
+    height: 100px;
+    margin-left: -100%;
+  }
+
+  .wrapper .right {
+    float: left;
+    width: 600px;
+    background: yellow;
+    height: 200px;
+    margin-left: -600px;
+  }
+</style>
+
+<body>
+  <div class="wrapper">
+    <div class="container">
+      <div class="main">
+        <p>bilibili</p>
+      </div>
+    </div>
+    <div class="left"></div>
+    <div class="right"></div>
+  </div>
+</body>
+
+</html>

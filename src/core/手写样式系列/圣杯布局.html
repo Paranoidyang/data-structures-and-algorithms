@@ -1,0 +1,61 @@
+<!-- 三栏利用 float 和 负margin 并列
+利用父容器设置 padding 给两边侧栏腾空间 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>圣杯布局</title>
+</head>
+<style>
+  * {
+    padding: 0;
+    margin: 0;
+  }
+
+  .wrapper {
+    padding: 0 60px 0 30px;
+  }
+
+  .wrapper .main {
+    float: left;
+    width: 100%;
+    height: 300px;
+    background: red;
+  }
+
+  .wrapper .left {
+    float: left;
+    width: 30px;
+    margin-left: -100%;
+    background: blue;
+    height: 100px;
+    position: relative;
+    right: 30px;
+  }
+
+  .wrapper .right {
+    float: left;
+    width: 60px;
+    margin-left: -60px;
+    background: yellow;
+    height: 200px;
+    position: relative;
+    left: 60px;
+  }
+</style>
+
+<body>
+  <div class="wrapper">
+    <!-- 中间内容放在最前面，优先渲染 -->
+    <div class="main">
+      <p>bilibili</p>
+    </div>
+    <div class="left"></div>
+    <div class="right"></div>
+  </div>
+</body>
+
+</html>
