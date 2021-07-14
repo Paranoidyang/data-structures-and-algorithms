@@ -6,7 +6,7 @@
  * 解题分析：一个栈实现入队列，另一个栈实现出队列
  */
 
-import Stack from '../../base/stack'
+import Stack from '@/base/stack'
 export default function() {
 
   function CQueue() {

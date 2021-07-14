@@ -6,7 +6,8 @@ import App from './App.vue'
 // import test from './core/easy/包含min函数的栈'
 // import test from './core/easy/链表中倒数第k个节点'
 // import test from './core/medium/队列的最大值'
-import test from './core/easy/手写call、apply、bind函数'
+import test from './core/easy/手写apply、call、bind函数'
 test()
+
 
 createApp(App).mount('#app')
