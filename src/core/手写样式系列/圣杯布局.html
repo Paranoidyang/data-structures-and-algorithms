@@ -1,5 +1,6 @@
 <!-- 三栏利用 float 和 负margin 并列
-利用父容器设置 padding 给两边侧栏腾空间 -->
+利用父容器设置 padding 给两边侧栏腾空间 
+利用相对定位偏移left和right，避免遮挡内容区-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,40 +20,49 @@
     padding: 0 60px 0 30px;
   }
 
-  .wrapper .main {
+  /* 全部左浮动 */
+  .main,
+  .left,
+  .right {
     float: left;
+    height: 500px;
+  }
+
+  /* 相对定位 */
+  .left,
+  .right {
+    position: relative;
+  }
+
+  .main {
+    /* 内容区100%会将left、right挤到下一行 */
     width: 100%;
-    height: 300px;
     background: red;
   }
 
-  .wrapper .left {
-    float: left;
+  .left {
     width: 30px;
+    /* 回到上一行 */
     margin-left: -100%;
     background: blue;
-    height: 100px;
-    position: relative;
+    /* 通过相对定位偏移自身，避免遮盖内容区 */
     right: 30px;
   }
 
-  .wrapper .right {
-    float: left;
+  .right {
     width: 60px;
+    /* 回到上一行 */
     margin-left: -60px;
     background: yellow;
-    height: 200px;
-    position: relative;
+    /* 通过相对定位偏移自身，避免遮盖内容区 */
     left: 60px;
   }
 </style>
 
 <body>
   <div class="wrapper">
-    <!-- 中间内容放在最前面，优先渲染 -->
-    <div class="main">
-      <p>bilibili</p>
-    </div>
+    <!-- 内容区放在最前面，优先渲染 -->
+    <div class="main">我是通过padding挤过来的</div>
     <div class="left"></div>
     <div class="right"></div>
   </div>

@@ -8,7 +8,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>双飞翼布局</title>
 </head>
 <style>
   * {
@@ -20,30 +20,37 @@
     min-width: 630px;
   }
 
-  .wrapper .container {
+  .container,
+  .left,
+  .right {
     float: left;
+  }
+
+  .left,
+  .right {
+    height: 500px;
+  }
+
+  .container {
     width: 100%;
   }
 
-  .wrapper .container .main {
-    height: 300px;
+  .main {
     background: red;
+    /* 这是与圣杯布局不一样的地方，这种写法比较直观，没有用相对定位 */
     margin: 0 600px 0 30px;
+    height: 500px;
   }
 
-  .wrapper .left {
-    float: left;
+  .left {
     width: 30px;
     background: blue;
-    height: 100px;
     margin-left: -100%;
   }
 
-  .wrapper .right {
-    float: left;
+  .right {
     width: 600px;
     background: yellow;
-    height: 200px;
     margin-left: -600px;
   }
 </style>
@@ -52,7 +59,7 @@
   <div class="wrapper">
     <div class="container">
       <div class="main">
-        <p>bilibili</p>
+        <p>我是通过margin挤过来的</p>
       </div>
     </div>
     <div class="left"></div>
