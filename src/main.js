@@ -7,7 +7,9 @@ import App from './App.vue'
 // import test from './core/easy/链表中倒数第k个节点'
 // import test from './core/medium/队列的最大值'
 // import test from './core/手写js系列/手写apply、call、bind函数'
-import test from './core/手写js系列/手写数组、对象深拷贝函数'
+// import test from './core/手写js系列/手写数组、对象深拷贝函数'
+// import test from './core/手写js系列/递归方式扁平化数组'
+import test from './core/手写js系列/简易版Promise.js'
 test()
 
 
