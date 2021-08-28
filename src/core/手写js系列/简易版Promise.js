@@ -3,26 +3,26 @@
  */
 
 export default function () {
-  // 定义状态常量
-  const PENDING = 'PENDING';
-  const FULFILLED = 'FULFILLED';
-  const REJECTED = 'REJECTED';
+  // 定义3个状态常量
+  const PENDING = 'pending';
+  const FULFILLED = 'fulfilled';
+  const REJECTED = 'rejected';
 
   class Promise {
     constructor(executor) {
       this.status = PENDING;
       this.value = undefined;
       this.reason = undefined;
-      // 存放成功的回调
+      // 存放成功的回调，一个promise可以多次then，所以使用数组存储
       this.onResolvedCallbacks = [];
-      // 存放失败的回调
+      // 存放失败的回调，一个promise可以多次catch，所以使用数组存储
       this.onRejectedCallbacks = [];
 
       let resolve = (value) => {
         if (this.status === PENDING) {
           this.status = FULFILLED;
           this.value = value;
-          // 依次将对应的函数执行
+          // 发布，依次将收集的对应函数执行
           this.onResolvedCallbacks.forEach(fn => fn());
         }
       }
@@ -31,12 +31,12 @@ export default function () {
         if (this.status === PENDING) {
           this.status = REJECTED;
           this.reason = reason;
-          // 依次将对应的函数执行
+          // 发布，依次将收集的对应函数执行
           this.onRejectedCallbacks.forEach(fn => fn());
         }
       }
 
-      try {
+      try {//执行器报错时返回一个拒绝的期约
         executor(resolve, reject)
       } catch (error) {
         reject(error)
@@ -53,12 +53,11 @@ export default function () {
       }
 
       if (this.status === PENDING) {
-        // 如果promise的状态是 pending，需要将 onFulfilled 和 onRejected 函数存放起来，等待状态确定后，再依次将对应的函数执行，发布订阅模式
+        // 如果promise的状态是 pending，需要将 onFulfilled 和 onRejected 函数分别存放起来，等待状态确定后，再依次将对应的函数执行，发布-订阅模式中的订阅过程
         this.onResolvedCallbacks.push(() => {
           onFulfilled(this.value)
         });
 
-        // 如果promise的状态是 pending，需要将 onFulfilled 和 onRejected 函数存放起来，等待状态确定后，再依次将对应的函数执行，发布订阅模式
         this.onRejectedCallbacks.push(() => {
           onRejected(this.reason);
         })
