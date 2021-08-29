@@ -12,7 +12,7 @@ export default function () {
   const resolvePromise = (promise2, x, resolve, reject) => {
     // 自己等待自己完成，循环引用，抛出类型错误
     if (promise2 === x) {
-      return reject(new TypeError('Chaining cycle detected for promise #<Promise>'))
+      return reject(new TypeError('Chaining cycle detected for promise #<myPromise>'))
     }
     // 标识是否调用过resolve或reject，只允许调用一次
     let called;
@@ -48,7 +48,7 @@ export default function () {
     }
   }
 
-  class Promise {
+  class myPromise {
     constructor(executor) {
       this.status = PENDING;
       this.value = undefined;
@@ -87,7 +87,7 @@ export default function () {
       //因为错误的值要让后面访问到，所以这里也要抛出错误，不然会在之后 then 的 resolve 中捕获
       onRejected = typeof onRejected === 'function' ? onRejected : err => { throw err };
       //每次调用 then 都返回一个新的 promise，这个新promise实例基于onResolved处理程序的返回值构建
-      let promise2 = new Promise((resolve, reject) => {
+      let promise2 = new myPromise((resolve, reject) => {
 
         if (this.status === FULFILLED) {
           //Promise A+规定这里必须是异步的，此处用setTimeout宏任务模拟，实际v8引擎是处理成微任务的
@@ -143,69 +143,77 @@ export default function () {
 
     finally(callback) {
       return this.then((value)=>{
-        return Promise.resolve(callback()).then(()=>value)
+        return myPromise.resolve(callback()).then(()=>value)
       },(reason)=>{
-        return Promise.resolve(callback()).then(()=>{throw reason})
+        return myPromise.resolve(callback()).then(()=>{throw reason})
       })  
     }
 
     // 4个静态方法
 
-    static resolve (parameter) {
-      // 如果传入 Promise 就直接返回
-      if (parameter instanceof Promise) {
-        return parameter;
+    static resolve (value) {
+      // 根据规范, 如果参数是Promise实例, 直接return这个实例，幂等性
+      if (value instanceof myPromise) {
+        return value;
       }
-      // 转成常规方式
-      return new Promise((resolve, reject) =>  {
-        resolve(parameter);
+      return new myPromise((resolve, reject) =>  {
+        resolve(value);
       });
     }
   
     static reject (reason) {
-      return new Promise((resolve, reject) => {
+      return new myPromise((resolve, reject) => {
         reject(reason);
       });
     }
   
-    static all(values) {
-      if (!Array.isArray(values)) {
-        const type = typeof values;
-        return new TypeError(`TypeError: ${type} ${values} is not iterable`)
+    static all(promiseArr) {
+      // 参数必须是数组
+      if (!Array.isArray(promiseArr)) {
+        const type = typeof promiseArr;
+        return new TypeError(`TypeError: ${type} ${promiseArr} is not iterable`)
       }
       
-      return new Promise((resolve, reject) => {
-        let resultArr = [];
-        let orderIndex = 0;
-        const processResultByKey = (value, index) => {
-          resultArr[index] = value;
-          if (++orderIndex === values.length) {
-              resolve(resultArr)
-          }
-        }
-        for (let i = 0; i < values.length; i++) {
-          let value = values[i];
-          if (value && typeof value.then === 'function') {
-            value.then((value) => {
-              processResultByKey(value, i);
-            }, reject);
-          } else {
-            processResultByKey(value, i);
-          }
-        }
-      });
-    }
+      return new myPromise((resolve, reject) => {
+        promiseArr.forEach((p, i) => {
+          //myPromise.resolve(p)用于处理传入值不为Promise的情况
+          myPromise.resolve(p).then(
+            val => {
+              index++
+              result[i] = val
+              //所有then执行后, resolve结果
+              if(index === promiseArr.length) {
+                resolve(result)
+              }
+            },
+            err => {
+              //有一个Promise被reject时，Promise的状态变为reject
+              reject(err)
+            }
+          )
+        })
+    })
+  }
+  
 
-    static race(promises) {
-      return new Promise((resolve, reject) => {
-        // 一起执行就是for循环
-        for (let i = 0; i < promises.length; i++) {
-          let val = promises[i];
-          if (val && typeof val.then === 'function') {
-            val.then(resolve, reject);
-          } else { // 普通值
-            resolve(val)
-          }
+    static race(promiseArr) {
+      // 参数必须是数组
+      if (!Array.isArray(promiseArr)) {
+        const type = typeof promiseArr;
+        return new TypeError(`TypeError: ${type} ${promiseArr} is not iterable`)
+      }
+
+      return new myPromise((resolve, reject) => {
+        //同时执行Promise,如果有一个Promise的状态发生改变,就变更新Promise的状态
+        for (let p of promiseArr) {
+          myPromise.resolve(p).then(  //myPromise.resolve(p)用于处理传入值不为Promise的情况
+            value => {
+              resolve(value)        //注意这个resolve是上边new Promise的
+            },
+            err => {
+              reject(err)
+            }
+          )
         }
       });
     }
@@ -215,7 +223,7 @@ export default function () {
 
 
   // 测试
-  const promise = new Promise((resolve, reject) => {
+  const promise = new myPromise((resolve, reject) => {
     setTimeout(() => {
       resolve('完整版成功');
     }, 1000);
@@ -225,10 +233,12 @@ export default function () {
     console.log('faild', err)
   })
 
-  const a = Promise.resolve(5)
+  const a = myPromise.resolve(5)
   a.then(value => {
     console.log(value)
   })
   console.log(a)
+  const b = myPromise.all(1)
+  console.log(b)
 
 }

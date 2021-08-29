@@ -8,7 +8,7 @@ export default function () {
   const FULFILLED = 'fulfilled';
   const REJECTED = 'rejected';
 
-  class Promise {
+  class myPromise {
     constructor(executor) {
       this.status = PENDING;
       this.value = undefined;
@@ -67,7 +67,7 @@ export default function () {
 
 
   // 测试
-  const promise = new Promise((resolve, reject) => {
+  const promise = new myPromise((resolve, reject) => {
     setTimeout(() => {
       resolve('成功');
     }, 1000);
