@@ -11,7 +11,8 @@ import App from './App.vue'
 // import test from './core/手写js系列/递归方式扁平化数组'
 // import test from './core/手写js系列/简易版Promise.js'
 // import test from './core/手写js系列/完整版Promise.js'
-import test from './core/手写js系列/手写防抖、节流函数.js'
+// import test from './core/手写js系列/手写防抖、节流函数.js'
+import test from './core/手写js系列/手写new操作符'
 test()
 
 
