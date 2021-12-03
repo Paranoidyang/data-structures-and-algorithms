@@ -7,16 +7,17 @@ export default function () {
     if (typeof obj === 'object') {//对象类型
       let result = Array.isArray(obj) ? [] : {}
       for (let key in obj) {
-        if (typeof obj[key] === 'object') {
-          result[key] = deepCopy(obj[key]) //递归复制
-        } else {
-          result[key] = obj[key]
+        if (obj.hasOwnProperty(key)) {//只拷贝对象本身的属性，不拷贝其原型上的属性
+          if (typeof obj[key] === 'object') {
+            result[key] = deepCopy(obj[key]) //递归复制
+          } else {
+            result[key] = obj[key]
+          }
         }
       }
       return result
-    } else {//基本类型，如果需要兼容基本类型则直接返回，否则就给出错误提示
-      throw new Error('参数必须是对象类型')
-      // return obj
+    } else {//兼容基本类型
+      return obj
     }
   }
 
