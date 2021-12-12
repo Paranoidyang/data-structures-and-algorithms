@@ -7,16 +7,15 @@ export default function () {
   function Parent(name) {
     this.name = name;
     this.say = () => {
-      console.log("say", 111);
+      console.log("say", this.name);
     };
   }
-  Parent.prototype.play = () => {
-    console.log("play", 222);
+  Parent.prototype.play = function () {
+    console.log("play", this.name);
   };
 
   function Children(name) {
-    Parent.call(this); //只执行一次父类的构造函数
-    this.name = name;
+    Parent.call(this, name); //只执行一次父类的构造函数
   }
   Children.prototype = Object.create(Parent.prototype); //拷贝一份父类的构造函数，赋值给子类原型
   Children.prototype.constructor = Children; //重写子类原型会切断构造函数和原型之间的关系，故需要手动指定回来
