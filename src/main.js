@@ -15,7 +15,8 @@ import App from "./App.vue";
 // import test from './core/手写js系列/手写new操作符'
 // import test from './core/手写js系列/手写forEach函数'
 // import test from './core/手写js系列/手写instanceof'
-import test from "./core/手写js系列/手写发布订阅模式";
+// import test from "./core/手写js系列/手写发布订阅模式";
+import test from "./core/手写js系列/寄生组合式继承";
 test();
 
 createApp(App).mount("#app");
