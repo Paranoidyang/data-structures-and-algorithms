@@ -44,8 +44,8 @@ export default function () {
     }
     // 只执行一次订阅
     once(key, fn) {
-      function _fn() {
-        fn();
+      function _fn(...args) {
+        fn(...args);
         this.remove(key, _fn);
       }
       this.listen(key, _fn);
