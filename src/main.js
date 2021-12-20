@@ -19,7 +19,8 @@ import App from "./App.vue";
 // import test from "./core/手写js系列/寄生组合式继承";
 // import test from "./core/手写js系列/实现LRU缓存机制";
 // import test from "./core/手写js系列/函数组合";
-import test from "./core/手写js系列/函数柯里化";
+// import test from "./core/手写js系列/函数柯里化";
+import test from "./core/手写js系列/排序算法之冒泡排序";
 test();
 
 createApp(App).mount("#app");
