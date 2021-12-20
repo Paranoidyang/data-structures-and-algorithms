@@ -3,14 +3,14 @@
  *          用闭包把参数保存起来，当参数的数量足够l，可以执行函数了，就开始执行函数
  */
 export default function () {
-  // 柯里函数
+  // currying函数
   var currying = function (fn) {
     var allArgs = [];
 
     return function (...args) {
-      if (args.length === 0) {
+      if (args.length === 0) { //如果不带参数，则利用保存的参数开始真正的求值计算
         return fn.apply(this, allArgs);
-      } else {
+      } else {//使用闭包保存参数
         [].push.apply(allArgs, args);
       }
     }
@@ -29,6 +29,7 @@ export default function () {
     }
 
   })();
+
 
   var cost = currying(cost);    // 转化成currying函数
 
