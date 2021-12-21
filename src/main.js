@@ -21,7 +21,8 @@ import App from "./App.vue";
 // import test from "./core/手写js系列/函数组合";
 // import test from "./core/手写js系列/函数柯里化";
 // import test from "./core/手写js系列/排序算法之冒泡排序";
-import test from "./core/手写js系列/排序算法之选择排序";
+// import test from "./core/手写js系列/排序算法之选择排序";
+import test from "./core/手写js系列/排序算法之插入排序";
 test();
 
 createApp(App).mount("#app");

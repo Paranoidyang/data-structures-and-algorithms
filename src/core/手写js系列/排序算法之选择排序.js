@@ -2,6 +2,7 @@
  * 题目描述：选择排序 O(n^2)：先假设当前是最小的，然后通过循环与其他项对比，确认最小项索引，如果最小项索引与当前项索引不一致，则交互它们的位置
  */
 export default function () {
+  // 选择排序，从小到大排
   function selectSort(arr) {
     let length = arr.length,
       minIndex = 0
