@@ -24,7 +24,8 @@ import App from "./App.vue";
 // import test from "./core/手写js系列/排序算法之选择排序";
 // import test from "./core/手写js系列/排序算法之插入排序";
 // import test from "./core/手写js系列/排序算法之归并排序";
-import test from "./core/手写js系列/排序算法之快速排序";
+// import test from "./core/手写js系列/排序算法之快速排序";
+import test from "./core/手写js系列/搜索算法之二分查找";
 test();
 
 createApp(App).mount("#app");
