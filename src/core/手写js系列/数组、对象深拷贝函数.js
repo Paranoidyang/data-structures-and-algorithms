@@ -4,7 +4,7 @@
 
 export default function () {
   function deepCopy(obj) {
-    if (typeof obj === 'object') {//对象类型
+    if (typeof obj === 'object' && obj !== null) {//对象类型
       let result = Array.isArray(obj) ? [] : {}
       for (let key in obj) {
         if (obj.hasOwnProperty(key)) {//只拷贝对象本身的属性，不拷贝其原型上的属性
@@ -25,9 +25,17 @@ export default function () {
   // let b = deepCopy(a)
   // console.log(b)
 
-  let obj = { name: 'lisi', address: { province: '广东' } }
-  let objCopy = deepCopy(obj)
-  objCopy.address.province = '北京'
-  console.log(obj, objCopy)
+  // let a = null
+  // let b = deepCopy(a)
+  // console.log(b)
+
+  let a = function a() { console.log('abc') }
+  let b = deepCopy(a)
+  console.log(b)
+
+  // let obj = { name: 'lisi', address: { province: '广东' } }
+  // let objCopy = deepCopy(obj)
+  // objCopy.address.province = '北京'
+  // console.log(obj, objCopy)
 }
 
