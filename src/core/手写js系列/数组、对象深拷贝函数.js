@@ -16,7 +16,7 @@ export default function () {
         }
       }
       return result
-    } else {//兼容基本类型
+    } else {//兼容基本类型和function，function的深拷贝没有实际应用场景，lodash中的处理也是直接返回
       return obj
     }
   }
