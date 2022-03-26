@@ -6,7 +6,6 @@
  */
 
 export default function () {
-  console.log("LRU");
   class LRUCache {
     constructor(limit) {
       this.cache = new Map();
@@ -14,38 +13,35 @@ export default function () {
     }
     get(key) {
       // key存在，更新位置
-      if (this.cache.has(key)) {
-        let value = this.cache.get(key);
-        this.cache.delete(key);
-        this.cache.set(key, value);
-        return value;
-      } else {
-        return -1;
-      }
+      let value = this.cache.get(key)
+      if (!this.cache.has(key)) { return -1 }
+      this.cache.delete(key)
+      this.cache.set(key, value)
+      return value
     }
-    put(key, value) {
+    set(key, value) {
+      // key存在，仅修改值
       if (this.cache.has(key)) {
-        // key存在，仅修改值
-        this.cache.delete(key);
-        this.cache.set(key, value);
-      } else if (this.cache.size < this.limit) {
-        // key不存在，cache未满，直接添加
-        this.cache.set(key, value);
+        this.cache.delete(key)
+        this.cache.set(key, value)
       } else {
-        // key不存在，cache满了，移除最久没使用的数据，keys()返回的是一个迭代器对象，可以调用next()方法获取第一个键值对
-        let oldestKey = this.cache.keys().next().value;
-        this.cache.delete(oldestKey);
-        this.cache.set(key, value);
+        this.cache.set(key, value)
+        // cache满了，移除最久没使用的数据，keys()返回的是一个迭代器对象，可以调用next()方法获取第一个键值对
+        if (this.cache.size > this.limit) {
+          let oldestKey = this.cache.keys().next().value
+          this.cache.delete(oldestKey)
+        }
       }
     }
   }
-  let lruCache = new LRUCache(2);
-  lruCache.put("a", 1);
-  lruCache.put("b", 2);
-  console.log(lruCache.get("a"));
-  lruCache.put("c", 3);
 
-  console.log(lruCache.get("a"));
-  console.log(lruCache.get("b"));
-  console.log(lruCache.get("c"));
+  let lruCache = new LRUCache(2);
+  lruCache.set("a", 1);
+  lruCache.set("b", 2);
+  console.log('a', lruCache.get("a"));//1，{b: 2, a: 1}
+  lruCache.set("c", 3);//{a: 1, c: 3}
+
+  console.log('a', lruCache.get("a"));//1
+  console.log('b', lruCache.get("b"));//-1
+  console.log('c', lruCache.get("c"));//3
 }
