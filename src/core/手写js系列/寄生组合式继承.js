@@ -17,7 +17,7 @@ export default function () {
   function Children(name) {
     Parent.call(this, name); //只执行一次父类的构造函数
   }
-  Children.prototype = Object.create(Parent.prototype); //拷贝一份父类的构造函数，赋值给子类原型
+  Children.prototype = Object.create(Parent.prototype); //拷贝父类原型，赋值给子类原型
   Children.prototype.constructor = Children; //重写子类原型会切断构造函数和原型之间的关系，故需要手动指定回来
 
   let child = new Children("111");
