@@ -11,14 +11,13 @@ export default function () {
     on(key, fn) {
       if (!this.events[key]) {
         this.events[key] = [];
-      } else {
-        this.events[key].push(fn);
       }
+      this.events[key].push(fn);
     }
     // 触发
-    emit(key, ...rest) {
+    emit(key, ...args) {
       this.events[key] &&
-        this.events[key].forEach((fn) => fn.apply(this, rest));
+        this.events[key].forEach((fn) => fn.apply(this, args));
     }
     // 移除订阅
     off(type, callBack) {
@@ -38,12 +37,12 @@ export default function () {
   }
 
   let event = new Event();
-  // let handle = function (price) {
-  //   console.log("价格=" + price); // 输出：价格=2000000'
-  // };
-  // event.on("squareMeter88", handle);
+  let handle = function (price) {
+    console.log("价格=" + price); // 输出：价格=2000000'
+  };
+  event.on("squareMeter88", handle);
   // event.off("squareMeter88", handle);
-  // event.emit("squareMeter88", 2000000);
+  event.emit("squareMeter88", 2000000);
 
   event.once("squareMeter99", (price) => {
     console.log("once", price);
