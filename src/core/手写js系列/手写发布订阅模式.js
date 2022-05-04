@@ -1,68 +1,53 @@
 /**
- * 题目描述：手写发布订阅，具有listen、trigger、once、remove方法
+ * 题目描述：手写发布订阅，具有on、emmit、once、off方法
  */
 
 export default function () {
   class Event {
     constructor() {
-      this.clientList = {};
+      this.events = {};
     }
     // 订阅
-    listen(key, fn) {
-      if (!this.clientList[key]) {
-        this.clientList[key] = [];
+    on(key, fn) {
+      if (!this.events[key]) {
+        this.events[key] = [];
+      } else {
+        this.events[key].push(fn);
       }
-      this.clientList[key].push(fn);
     }
     // 触发
-    trigger() {
-      var key = Array.prototype.shift.call(arguments),
-        fns = this.clientList[key];
-      if (!fns || fns.length === 0) {
-        return false;
-      }
-      for (var i = 0, fn; (fn = fns[i++]); ) {
-        fn.apply(this, arguments);
-      }
+    emit(key, ...rest) {
+      this.events[key] &&
+        this.events[key].forEach((fn) => fn.apply(this, rest));
     }
     // 移除订阅
-    remove(key, fn) {
-      var fns = this.clientList[key];
-      if (!fns) {
-        return false;
-      }
-      if (!fn) {
-        fns && (fns.length = 0);
-      } else {
-        for (var l = fns.length - 1; l >= 0; l--) {
-          var _fn = fns[l];
-          if (_fn === fn) {
-            fns.splice(l, 1);
-          }
-        }
-      }
+    off(type, callBack) {
+      if (!this.events[type]) return;
+      this.events[type] = this.events[type].filter((item) => {
+        return item !== callBack;
+      });
     }
     // 只执行一次订阅
     once(key, fn) {
       function _fn(...args) {
         fn(...args);
-        this.remove(key, _fn);
+        this.off(key, _fn);
       }
-      this.listen(key, _fn);
+      this.on(key, _fn);
     }
   }
 
   let event = new Event();
-  let handle = function (price) {
-    console.log("价格=" + price); // 输出：价格=2000000'
-  };
-  event.listen("squareMeter88", handle);
-  event.remove("squareMeter88", handle);
-  event.trigger("squareMeter88", 2000000);
+  // let handle = function (price) {
+  //   console.log("价格=" + price); // 输出：价格=2000000'
+  // };
+  // event.on("squareMeter88", handle);
+  // event.off("squareMeter88", handle);
+  // event.emit("squareMeter88", 2000000);
 
   event.once("squareMeter99", (price) => {
-    console.log("once", price); //获取不到参数，如何解决呢？？？？？
+    console.log("once", price);
   });
-  event.trigger("squareMeter99", 3000000);
-  event.trigger("squareMeter99", 4000000);
+  event.emit("squareMeter99", 3000000);
+  event.emit("squareMeter99", 4000000);
 }

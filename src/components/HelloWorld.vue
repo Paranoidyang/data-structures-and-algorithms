@@ -17,7 +17,7 @@ defineProps({
   msg: String,
 });
 
-const state = reactive({ count: 0 });
+// const state = reactive({ count: 0 });
 </script>
 
 <style scoped>
