@@ -7,7 +7,7 @@
  */
 export default function () {
   /**
-   * 
+   * 递归版本
    * @param {*} arr 已排序好的数组（从小到大）
    * @param {*} target 目标元素
    * @param {*} start 开始索引
@@ -15,26 +15,53 @@ export default function () {
    * @returns 
    */
   function binarySearch(arr, target, start, end) {
-    let targetIndex = -1
-    let mid = Math.floor((start + end) / 2)//取中间值索引
-    if (target === arr[mid]) {//找到目标
-      targetIndex = mid
-      return targetIndex
+    let midIndex = Math.floor((start + end) / 2)//取中间值索引
+    let mid = arr[midIndex]
+    if (target === mid) {//找到目标
+      return midIndex
     }
 
     if (start >= end) {//start和end相等，意味着所有的元素已经检查完毕了，还没命中的话就说明没有目标元素；而start > end是不符合下面逻辑的，直接退出
       return -1
     }
 
-    if (target > arr[mid]) {
-      return binarySearch(arr, target, mid + 1, end)
+    if (target > mid) {
+      return binarySearch(arr, target, midIndex + 1, end)
     } else {
-      return binarySearch(arr, target, start, mid - 1)
+      return binarySearch(arr, target, start, midIndex - 1)
     }
   }
 
   let arr = [1, 2, 3, 4]
   console.log('target所在索引：', binarySearch(arr, 3, 0, arr.length - 1))
+
+  /**
+   * 非递归版本
+   * @param {*} arr 已排序好的数组（从小到大）
+   * @param {*} target 目标元素
+   * @returns 
+   */
+  function binarySearch(arr, target) {
+    let start = 0
+    let end = arr.length - 1
+
+    while (start <= end) {
+      let midIndex = Math.floor((start + end) / 2)
+      let mid = arr[midIndex]
+      if (target === mid) {
+        return midIndex
+      } else if (target > mid) {
+        start = midIndex + 1
+      } else {
+        end = midIndex - 1
+      }
+    }
+
+    return -1
+  }
+
+  let arr = [1, 2, 3, 4]
+  console.log('target所在索引：', binarySearch(arr, 1))
 
 
 }

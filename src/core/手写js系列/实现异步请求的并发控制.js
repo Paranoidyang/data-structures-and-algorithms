@@ -14,7 +14,7 @@
   ]
  */
 export default function () {
-  async sendRequest(forms, max = 4) {
+  async function sendRequest(forms, max = 4) {
     return new Promise(resolve => {
       const len = forms.length;
       let idx = 0;
@@ -25,7 +25,6 @@ export default function () {
           max--; // 占用通道
           console.log(idx, "start");
           const form = forms[idx].form;
-          const index = forms[idx].index;
           idx++
           request({
             url: '/upload',
@@ -42,6 +41,6 @@ export default function () {
         }
       }
       start();
-    });
+    })
   }
 }
