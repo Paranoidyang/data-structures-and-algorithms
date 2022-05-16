@@ -20,10 +20,10 @@ export default function () {
         this.events[key].forEach((fn) => fn.apply(this, args));
     }
     // 移除订阅
-    off(type, callBack) {
+    off(type, fn) {
       if (!this.events[type]) return;
       this.events[type] = this.events[type].filter((item) => {
-        return item !== callBack;
+        return item !== fn;
       });
     }
     // 只执行一次订阅
