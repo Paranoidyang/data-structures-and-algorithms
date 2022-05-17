@@ -19,17 +19,17 @@ export default function () {
    * @returns 
    */
   function twoSum(nums, target) {
-    let map = {}//用对象来模拟map的能力
+    let diffs = new Map()
     let len = nums.length
     for (let i = 0; i < len; i++) {
-      if (map[target - nums[i]] !== undefined) {//判断当前值对应的 target 差值是否存在（是否已遍历过）
-        return [map[target - nums[i]], i]//若有对应差值，那么答案get！
+      if (diffs.has(target - nums[i])) {//判断当前值对应的 target 差值是否存在（是否已遍历过）
+        return [diffs.get(target - nums[i]), i]//若有对应差值，那么答案get！
       }
-      map[nums[i]] = i//若没有对应差值，则记录当前值
+      diffs.set(nums[i], i)//若没有对应差值，则记录当前值
     }
     return false
   }
 
-  console.log(twoSum([1, 4, 3, 7], 9))
+  console.log(twoSum([2, 7, 1, 4], 9))
 
 }
