@@ -19,12 +19,12 @@ export default function () {
     let prev = null
     let current = head
     while (current !== null) {
-      const next = current.next//记录当前节点的下一个节点
+      let next = current.next//记录当前节点的下一个节点
       current.next = prev//翻转节点指针
       prev = current//向后移动
       current = next//最后会是null
     }
     return prev
- };
+  };
 }
 
