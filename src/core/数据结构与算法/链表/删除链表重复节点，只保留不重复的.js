@@ -20,7 +20,7 @@ function ListNode(val) {
   this.next = null;
 }
 /**
- * 删除有序链表的所有重复元素，只保留不重复的节点
+ * 删除有序链表的所有重复节点，只保留不重复的节点
  * @param {*} head 
  */
 function deleteDuplicates(head) {
@@ -31,7 +31,7 @@ function deleteDuplicates(head) {
   while (cur.next && cur.next.next) {// 当 cur 的后面有至少两个结点时
     if (cur.next.val === cur.next.next.val) {// 对 cur 后面的两个结点进行比较
       let val = cur.next.val// 若值重复，则记下这个值
-      while (cur.next && cur.next.val === val) { // 反复地排查后面的元素是否存在多次重复该值的情况
+      while (cur.next && cur.next.val === val) { // 反复地排查后面的节点是否存在多次重复该值的情况
         cur.next = cur.next.next// 若有，则删除
       }
     } else {
