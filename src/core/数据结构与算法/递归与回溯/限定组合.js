@@ -26,11 +26,13 @@ export default function () {
     dfs(1)// 进入 dfs，起始数字是1
     function dfs(index) {// 定义 dfs 函数，入参是当前遍历到的数字
       if (subset.length === k) {
+        debugger
         res.push(subset.slice())
         return
       }
       for (let i = index; i <= n; i++) {// 从当前数字的值开始，遍历 index-n 之间的所有数字
         subset.push(i)// 这是当前数字存在于组合中的情况
+        debugger
         dfs(i + 1)// 基于当前数字存在于组合中的情况，进一步 dfs
         subset.pop()// 回溯，这是当前数字不存在于组合中的情况
       }
