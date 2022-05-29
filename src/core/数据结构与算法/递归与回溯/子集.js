@@ -15,31 +15,33 @@
   ]
  */
 
-/**
- * 返回该数组所有可能的子集
- * @param {*} nums 
- */
-function subsets(nums) {
-  let res = []
-  let len = nums.length
-  let subset = []
-  function dfs(n) {
-    if (n === len) { // 遍历到叶子节点，存入结果
-      res.push(subset.slice())
-      return
-    }
-    // 第n层，取，dfs到下一层
-    subset.push(nums[n])
-    dfs(n + 1)
-    // 第n层，不取，dfs到下一层
-    subset.pop()
-    dfs(n + 1)
-  }
-  dfs(0) // 从root开始
-  return res
-}
-console.log(subsets([1, 2, 3]))
+export default function () {
 
+  /**
+   * 返回该数组所有可能的子集
+   * @param {*} nums 
+   */
+  function subsets(nums) {
+    let res = []
+    let len = nums.length
+    let subset = []
+    function dfs(n) {
+      if (n === len) { // 遍历到叶子节点，存入结果
+        res.push(subset.slice())
+        return
+      }
+      subset.push(nums[n])// 第n层，取，dfs到下一层
+      dfs(n + 1)
+      subset.pop()// 第n层，不取，dfs到下一层
+      dfs(n + 1)
+    }
+    dfs(0) // 从root开始
+    return res
+  }
+  console.log(subsets([1, 2, 3]))
+
+
+}
 
 
 
