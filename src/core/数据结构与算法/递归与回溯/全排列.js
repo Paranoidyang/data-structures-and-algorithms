@@ -16,40 +16,47 @@
       [3,2,1]
     ]
  */
-
-/**
+export default function () {
+  /**
  * 返回所有可能的全排列
  * @param {*} nums 没有重复数字的数组
  */
-function permute(nums) {
-  const res = []
-  const used = []
+  function permute(nums) {
+    const res = []
+    const used = [] //标识是否已经用过，其实也可以用path.includes判断，这里以空间换时间
 
-  function dfs(path) {
-    // 递归边界条件：路径数组的长度和 nums 相等，说明路径找到了
-    if (path.length === nums.length) {
-      res.push(path.slice())
-      return
+    function dfs(path) {
+      // 递归边界条件：路径数组的长度和 nums 相等，说明路径找到了
+      if (path.length === nums.length) {
+        debugger
+        res.push(path.slice())
+        return
+      }
+      for (let num of nums) {
+        debugger
+        // 判断当前数组有没有用过，用过直接跳过
+        if (used[num]) continue
+        // 如果没用过，放入路径数组，打上标识
+        path.push(num)
+        used[num] = true
+        // 针对当前路径继续递归
+        dfs(path)
+        // 回溯
+        path.pop()
+        // 使用的标记也要清空
+        used[num] = false
+      }
     }
-    for (let num of nums) {
-      // 判断当前数组有没有用过，用过直接跳过
-      if (used[num]) continue
-      // 如果没用过，放入路径数组，打上标识
-      path.push(num)
-      used[num] = true
-      // 针对当前路径继续递归
-      dfs(path)
-      // 回溯
-      path.pop()
-      // 使用的标记也要清空
-      used[num] = false
-    }
+    dfs([])
+    return res
   }
-  dfs([])
-  return res
+
+  // 测试
+  console.log(permute([1, 2, 3]))
+
+
 }
-// 测试
-console.log(permute([1, 2, 3]))
+
 
 
 

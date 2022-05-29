@@ -15,7 +15,7 @@ import App from "./App.vue";
 // import test from './core/手写js系列/手写new操作符'
 // import test from './core/手写js系列/手写forEach函数'
 // import test from './core/手写js系列/手写instanceof'
-import test from "./core/手写js系列/手写发布订阅模式";
+// import test from "./core/手写js系列/手写发布订阅模式";
 // import test from "./core/手写js系列/寄生组合式继承";
 // import test from "./core/手写js系列/实现LRU缓存机制";
 // import test from "./core/手写js系列/函数组合";
@@ -26,6 +26,7 @@ import test from "./core/手写js系列/手写发布订阅模式";
 // import test from "./core/手写js系列/排序算法之归并排序";
 // import test from "./core/手写js系列/排序算法之快速排序";
 // import test from "./core/手写js系列/搜索算法之二分查找";
+import test from "./core/数据结构与算法/递归与回溯/全排列";
 test();
 
 createApp(App).mount("#app");
