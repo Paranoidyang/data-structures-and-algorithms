@@ -1,0 +1,37 @@
+<!-- 题目要求：一个小球向右匀速移动 200px，然后移动回来，再移动过去，最后停留 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小球水平移动</title>
+</head>
+<style>
+  .ball {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: red;
+    animation: move 2s linear 3 alternate both;
+  }
+
+  @keyframes move {
+    from {
+      /* from是0%的别称 */
+      transform: translate(0, 0);
+    }
+
+    to {
+      /* to是100%的别称 */
+      transform: translate(200px, 0);
+    }
+  }
+</style>
+
+<body>
+  <div class="ball"></div>
+</body>
+
+</html>
