@@ -1,0 +1,34 @@
+<!-- 题目描述：一个父元素下有多个子元素，希望点击每个标签都可以弹出 “我是xxx” 这样的提示 -->
+<!-- 思路：可以利用事件冒泡原理来实现，而不用给每个子元素添加监听函数，减少内存占用 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>事件代理</title>
+</head>
+
+<body>
+  <div id="father">
+    <a href="#">链接1号</a>
+    <a href="#">链接2号</a>
+    <a href="#">链接3号</a>
+    <a href="#">链接4号</a>
+    <a href="#">链接5号</a>
+    <a href="#">链接6号</a>
+  </div>
+</body>
+
+<script>
+  const father = document.getElementById('father')// 获取父元素
+  father.addEventListener('click', function (e) {// 给父元素安装一次监听函数
+    if (e.target.tagName === 'A') {// 识别是否是目标子元素
+      e.preventDefault()// 阻止默认的点击事件执行（如果father是复选框，其点击的默认行为选中就不会执行），这里只要拦截子元素的点击事件
+      alert(`我是${e.target.innerText}`)
+    }
+  })
+</script>
+
+</html>
