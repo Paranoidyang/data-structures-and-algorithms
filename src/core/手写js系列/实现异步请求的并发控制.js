@@ -15,9 +15,9 @@
 
 function multiRequest(urls = [], max = 5) {
   const len = urls.length // 请求总数量
-  const result = new Array(len).fill(false) // 如果需要按urls的顺序输出结果的话，则根据请求数量创建一个数组来保存请求的结果
   let idx = 0 // 当前请求url的索引
   let successCounter = 0 // 已成功请求数量
+  const result = new Array(len).fill(false) // 如果需要按urls的顺序输出结果的话，则根据请求数量创建一个数组来保存请求的结果
 
   return new Promise(resolve => {
     const start = async () => {
