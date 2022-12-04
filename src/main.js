@@ -28,6 +28,7 @@ import App from "./App.vue";
 // import test from "./core/手写js系列/搜索算法之二分查找";
 // import test from "./core/数据结构与算法/递归与回溯/全排列";
 // import test from "./core/数据结构与算法/递归与回溯/限定组合";
-// test();
+import test from "./core/手写js系列/前端搜索函数.js";
+test();
 
 createApp(App).mount("#app");

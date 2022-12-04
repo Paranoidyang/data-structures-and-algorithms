@@ -1,58 +1,54 @@
 /**
- * 实现一个批量请求函数 multiRequest(urls, max)，要求如下：
+ * 实现一个能批量发送请求，并能控制请求并发数的函数 multiRequest(urls, max)，要求如下：
     • 要求最大并发数 max
     • 每当有一个请求返回，就留下一个空位，可以增加新的请求
-    • 所有请求完成后，结果按照 urls 里面的顺序依次打出
+    • 所有请求完成后，结果按照 urls 里面的顺序（或者按照请求返回的顺序）依次打出
 
-   控制请求并发数，比如在大文件上传场景中，当文件很大时，量上传所有切片会导致浏览器卡死，这时就可以采用控制请求并发的方式进行上传
-   原理：通过并发数max来管理并发数，发起一个请求max--，结束一个请求max++即可。
+   场景：如大文件上传场景中，当文件很大时，一次性上传所有切片（几百个http请求）会导致浏览器卡死，这时就可以采用控制请求并发的方式进行上传
+   原理：通过并发数max来管理并发数，发起一个请求max--，结束一个请求max++。
+
+   如果想要实现按接口返回的顺序输出结果，则只修改两行代码即可：
+   const result = new Array(len).fill(false) ----》const result = []
+   result[current] = urls[current].res ------》result.push(urls[current].res)
+
  */
-export default function () {
-  function multiRequest(urls = [], max) {
-    // 请求总数量
-    const len = urls.length;
-    // 根据请求数量创建一个数组来保存请求的结果
-    const result = new Array(len).fill(false);
-    // 当前完成的数量
-    let count = 0;
 
-    return new Promise(resolve => {
-      // 请求max个
-      while (count < max) {
-        next();
-      }
-      function next() {
-        let current = count++;
-        // 处理边界条件
-        if (current >= len) {
-          // 请求全部完成就将promise置为成功状态, 然后将result作为promise值返回
-          !result.includes(false) && resolve(result);
-          return;
-        }
-        const url = urls[current];
-        console.log(`开始 ${current}`, new Date().toLocaleString());
-        fetch(url)
-          .then((res) => {
-            // 保存请求结果
-            result[current] = res;
-            console.log(`完成 ${current}`, new Date().toLocaleString());
-            // 请求没有全部完成, 就递归
-            if (current < len) {
-              next();
-            }
-          })
-          .catch((err) => {
-            console.log(`结束 ${current}`, new Date().toLocaleString());
-            result[current] = err;
-            // 请求没有全部完成, 就递归
-            if (current < len) {
-              next();
-            }
-          });
-      }
-    });
-  }
+function multiRequest(urls = [], max = 5) {
+  const len = urls.length // 请求总数量
+  const result = new Array(len).fill(false) // 如果需要按urls的顺序输出结果的话，则根据请求数量创建一个数组来保存请求的结果
+  let idx = 0 // 当前请求url的索引
+  let succssCounter = 0 // 已成功请求数量
 
-  let urls = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(idx => `https://mcs.snssdk.com/list?index=${idx}`)
-  multiRequest(urls, 2).then(res => console.log('全部请求成功', res))
+  return new Promise(resolve => {
+    const start = async () => {
+      while (idx < len && max > 0) { // 有请求，有通道
+        let current = idx
+        max-- // 占用通道
+        idx++
+        const url = urls[current].url
+        console.log(current, '开始')
+        fetch(url).then(() => {
+          console.log(current, '结束')
+          max++ // 释放通道
+          succssCounter++ // 请求成功数+1
+          result[current] = urls[current].res // 按urls的原顺序，push进result
+          if (succssCounter === len) { // 请求全部发送成功，返回结果
+            resolve(result)
+          } else {
+            start()
+          }
+        })
+      }
+    }
+    start()
+  })
 }
+
+// 测试
+let urls = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(idx => (
+  {
+    url: `https://mcs.snssdk.com/list?index=${idx}`,
+    res: `res${idx}`
+  }
+))
+multiRequest(urls, 5).then(res => console.log('全部请求成功', res))
