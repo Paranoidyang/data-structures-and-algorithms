@@ -2,27 +2,24 @@
  * 题目描述：数组去重
  */
 
-export default function () {
-  let array = [1, 1, '1', '1'];
+let array = [1, 1, '1', '1'];
 
-  function unique(array) {
-      // res用来存储结果
-      var res = [];
-      for (var i = 0, arrayLen = array.length; i < arrayLen; i++) {
-          for (var j = 0, resLen = res.length; j < resLen; j++ ) {
-              if (array[i] === res[j]) {
-                  break;
-              }
-          }
-          // 如果array[i]是唯一的，那么执行完循环，j等于resLen
-          if (j === resLen) {
-              res.push(array[i])
-          }
-      }
-      return res;
-  }
-
-  console.log(unique(array)); // [1, "1"]
-
+// 双重循环
+function unique(arr) {
+    // res用来存储结果
+    var res = [];
+    for (const item of arr) {
+        for (var i = 0, resLen = res.length; i < resLen; i++) {
+            if (item === res[i]) {
+                break;
+            }
+        }
+        // 如果item是唯一的，那么执行完循环，i等于resLen
+        if (i === resLen) {
+            res.push(item)
+        }
+    }
+    return res;
 }
 
+console.log(unique(array)); // [1, "1"]
