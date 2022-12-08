@@ -7,12 +7,14 @@
  * 4. 重复步骤 3，直到找到已排序的元素小于或者等于新元素的位置  
  * 5. 将新元素插入到该位置后  
  * 6. 重复步骤 2~5
+ * 
+ * 动图可以看该链接：https://zhuanlan.zhihu.com/p/42586566
  */
 export default function () {
   // 插入排序，从小到大排
   function insertSort(arr) {
-    let length = arr.length
-    for (let i = 1; i < length; i++) {//假定第一项已经排序，所以遍历从第二个位置开始
+    const len = arr.length
+    for (let i = 1; i < len; i++) {//假定第一项已经排序，所以遍历从第二个位置开始
       let j = i
       let target = arr[i]
       while (j > 0 && arr[j - 1] > target) {//只要变量j比0大，且数组前面的值比待比较的值大，就将前面的值移到当前位置上，并减小j
