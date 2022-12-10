@@ -1,5 +1,8 @@
 /**
  * 题目描述：插入排序 O(n^2)
+ * 插入排序的核心思想是“找到元素在它前面那个序列中的正确位置”。
+ * 插入排序所有的操作都基于一个这样的前提：当前元素前面的序列是有序的。基于这个前提，从后往前去寻找当前元素在前面那个序列里的正确位置。
+ * 
  * 排序小型数组时，此算法比选择排序和冒泡排序性能要好，算法描述：  
  * 1. 从第一个元素开始，该元素可以认为已经被排序  
  * 2. 取出下一个元素，在已经排序的元素序列中从后向前扫描  
@@ -10,22 +13,20 @@
  * 
  * 动图可以看该链接：https://zhuanlan.zhihu.com/p/42586566
  */
-export default function () {
-  // 插入排序，从小到大排
-  function insertSort(arr) {
-    const len = arr.length
-    for (let i = 1; i < len; i++) {//假定第一项已经排序，所以遍历从第二个位置开始
-      let j = i
-      let target = arr[i]
-      while (j > 0 && arr[j - 1] > target) {//只要变量j比0大，且数组前面的值比待比较的值大，就将前面的值移到当前位置上，并减小j
-        arr[j] = arr[j - 1]
-        j--
-      }
-      arr[j] = target
+
+// 插入排序，从小到大排
+function insertSort(arr) {
+  const len = arr.length
+  for (let i = 1; i < len; i++) {//假定第一项已经排序，所以遍历从第二个位置开始
+    let j = i
+    let target = arr[i]
+    while (j > 0 && arr[j - 1] > target) {//只要变量j比0大，且数组前面的值比待比较的值大，就将前面的值下一位置，并减小j，直到找到已排序的元素小于或者等于新元素的位置，将新元素插入到该位置后 
+      arr[j] = arr[j - 1]
+      j--
     }
-    return arr
+    arr[j] = target
   }
-
-  console.log(insertSort([2, 3, 4, 1, 4, 1, 5]))
-
+  return arr
 }
+
+console.log(insertSort([2, 3, 4, 1, 4, 1, 5]))
