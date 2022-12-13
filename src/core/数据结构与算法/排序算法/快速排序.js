@@ -1,5 +1,5 @@
 /**
- * 题目描述：快速排序 O(nlog(n))~O(n^2)
+ * 快速排序 O(nlog(n))~O(n^2)
  * 1、选取一个数作为中心轴
  * 2、将大于中心轴的数字放在中心轴的右边
  * 3、将小于中心轴的数字放在中心轴的左边
@@ -62,8 +62,8 @@ function partition(arr, left, right) {
       i++
       j--
     }
-
   }
+
   // 返回左指针索引作为下一次划分左右子数组的依据
   return i
 }
@@ -72,5 +72,6 @@ function partition(arr, left, right) {
 function swap(arr, i, j) {
   [arr[i], arr[j]] = [arr[j], arr[i]]
 }
+console.log(quickSort([2, 1, 5, 9, 8]))
 
 console.log(quickSort([2, 3, 4, 1, 4, 1, 5]));
