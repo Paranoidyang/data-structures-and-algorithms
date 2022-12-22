@@ -3,19 +3,13 @@
  */
 
 // 判断是否是对象（不包含函数）
-function isObj(obj) {
-  return typeof obj === 'object' && obj !== null
-}
+const isObj = (obj) => typeof obj === 'object' && obj !== null
 function deepCopy(obj) {
-  if (isObj(obj)) {//对象类型
-    let result = Array.isArray(obj) ? [] : {}
-    for (let key in obj) {
-      if (obj.hasOwnProperty(key)) {//只拷贝对象本身的属性，不拷贝其原型上的属性
-        if (isObj(obj[key])) {
-          result[key] = deepCopy(obj[key]) //递归复制
-        } else {
-          result[key] = obj[key]
-        }
+  if (isObj(obj)) { //对象类型
+    const result = Array.isArray(obj) ? [] : {}
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) { //只拷贝对象本身的属性，不拷贝其原型上的属性
+        result[key] = isObj(obj[key]) ? deepCopy(obj[key]) : obj[key] //递归复制
       }
     }
     return result

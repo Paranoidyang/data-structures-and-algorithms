@@ -36,3 +36,5 @@ window.city = 'Shenzhen'
 console.log('window.city', window.city) //Shenzhen
 sanbox.inactive()
 console.log('window.city', window.city) //Beijing
+sanbox.active()
+console.log('window.city', window.city) //Shenzhen
