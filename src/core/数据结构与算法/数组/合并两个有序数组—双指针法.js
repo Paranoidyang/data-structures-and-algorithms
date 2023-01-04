@@ -15,36 +15,32 @@
     2）如果提前遍历完的是 nums2，剩下的是 nums1。由于容器本身就是 nums1，所以此时不必做任何额外的操作。
 
  */
-export default function () {
-  /**
-   * 合并两个有序数组
-   * @param {*} nums1
-   * @param {*} nums2 
-   * @returns 
-   */
-  function merge(nums1, nums2) {
-    // 初始化两个指针i、j指向两个数组生效部分的尾部，初始化 nums1 尾部索引k
-    let i = nums1.length - 1
-    let j = nums2.length - 1
-    let k = nums1.length + nums2.length - 1
-    while (i >= 0 && j >= 0) {
-      // 取较大的值，从末尾往前填补
-      if (nums1[i] < nums2[j]) {
-        nums1[k] = nums2[j]
-        k--
-        j--
-      } else {
-        nums1[k] = nums1[i]
-        k--
-        i--
-      }
+/**
+ * 合并两个有序数组
+ * @param {*} nums1
+ * @param {*} nums2 
+ * @returns 
+ */
+function merge(nums1, nums2) {
+  let i = 0, j = 0// 初始化两个指针，分别指向 nums1 和 nums2
+  const res = []// 初始化结果数组
+  const len1 = nums1.length// 缓存nums1的长度
+  const len2 = nums2.length// 缓存nums2的长度
+  // 合并两个子数组
+  while (i < len1 && j < len2) {
+    if (nums1[i] < nums2[j]) {
+      res.push(nums1[i])
+      i++
+    } else {
+      res.push(nums2[j])
+      j++
     }
-    // nums2 留下的情况，特殊处理一下 
-    while (j >= 0) {
-      nums1[j] = nums2[j]
-      j--
-    }
-    return nums1
   }
-  console.log(merge([1, 2, 3, 9], [1, 2, 5, 6, 10]))
+  // 若其中一个子数组首先被合并完全，则直接拼接另一个子数组的剩余部分
+  if (i >= len1) {
+    return res.concat(nums2.slice(j))
+  } else {
+    return res.concat(nums1.slice(i))
+  }
 }
+console.log(merge([1, 2, 3, 9], [1, 2, 5, 6, 10]))
