@@ -4,8 +4,8 @@
 
 // reduce
 function flatten1(arr) {
-  return arr.reduce(function (prev, next) {
-    return prev.concat(Array.isArray(next) ? flatten1(next) : next)
+  return arr.reduce(function (prev, curr) {
+    return prev.concat(Array.isArray(curr) ? flatten1(curr) : curr)
   }, [])
 }
 
