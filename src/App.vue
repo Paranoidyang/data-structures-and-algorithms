@@ -1,11 +1,6 @@
 <template>
-  <img alt="Vue3 logo" src="./assets/logo.png" />
-  <HelloWorld msg="data structures and algorithms" />
+  <div>数据结构与算法、CSS、JS手写高频考点汇总，持续更新！</div>
 </template>
-
-<script setup>
-import HelloWorld from "./components/HelloWorld.vue";
-</script>
 
 <style>
 #app {
