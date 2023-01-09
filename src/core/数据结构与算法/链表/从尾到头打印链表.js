@@ -13,16 +13,30 @@
  *     this.next = null;
  * }
  */
-export default function () {
-  function reversePrint(head) {
-    let nums = []
-    let node = head
-    while (node !== null) {
-      nums.unshift(node.val)
-      node = node.next
-    }
-    return nums
+
+function reversePrint(head) {
+  let nums = []
+  let node = head
+  while (node !== null) {
+    nums.unshift(node.val)
+    node = node.next
   }
+  return nums
 }
+
+// 测试
+function ListNode(val) {
+  this.val = val;
+  this.next = null;
+}
+let node1 = new ListNode(1)
+let node2 = new ListNode(2)
+let node3 = new ListNode(3)
+let node4 = new ListNode(4)
+node1.next = node2
+node2.next = node3
+node3.next = node4
+node4.next = null
+console.log(reversePrint(node1))
 
 
