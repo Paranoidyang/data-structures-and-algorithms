@@ -14,7 +14,7 @@ function ListNode(val) {
   this.next = null;
 }
 /**
- * 判断链表是否有环
+ * 标识位，判断链表是否有环
  * @param {*} head 
  */
 function hasCycle(head) {
@@ -28,6 +28,25 @@ function hasCycle(head) {
   }
   return false
 }
+
+/**
+ * 快慢指针，判断链表是否有环
+ * @param {*} head 
+ * @returns 
+ */
+function hasCycle(head) {
+  if (!head || !head.next) return null;
+  let slow = head.next, fast = head.next.next; //定义快慢指针
+  while (fast && fast.next) {
+    slow = slow.next; // 慢指针走一步
+    fast = fast.next.next; // 快指针走两步
+    if (fast == slow) { // 相遇说明有环
+      return true
+    }
+  }
+  return false;
+};
+
 let node1 = new ListNode(1)
 let node2 = new ListNode(2)
 let node3 = new ListNode(3)
