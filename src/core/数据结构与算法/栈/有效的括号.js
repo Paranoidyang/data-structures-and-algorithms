@@ -33,33 +33,29 @@
    * @returns 
    */
 function isValid(str) {
-  // 转成数组，方便处理
-  const strArr = str.split('')
-  const stack = []
-  while (strArr.length > 0) {
-    // 字符串的头，注：shfit完字符串长度会减小
-    let head = strArr.shift()
-    // 栈顶
-    let stackTop = stack[stack.length - 1]
-    // 没有匹配的左括号直接返回false
-    if (stack.length === 0 && (head === ')' || head === '}' || head === ']')) {
-      return false
-    }
-    // 如果是左括号，入栈
-    if (head === '(' || head === '{' || head === '[') {
-      stack.push(head)
-    }
-    // 如果是右括号，且栈顶为对应左括号，则弹出左括号
-    if ((stackTop === '(' && head === ')') || (stackTop === '[' && head === ']') || (stackTop === '{' && head === '}')) {
-      stack.pop()
-    }
+  let stack = []
+  let map = {
+    '(': ')',
+    '{': '}',
+    '[': ']'
   }
-  return stack.length <= 0
+  for (const s of str) {
+    if (s in map) { // 遇到左括号入栈
+      stack.push(s)
+      continue
+    }
+    // 遇到右括号，则弹出栈顶元素，根据map判断是否是对应的括号，如果不是，不是有效括号
+    if (s !== map[stack.pop()]) return false
+  }
+
+  return stack.length === 0 // 如果是有效括号，栈最后一定为空
 
 }
+console.log(isValid('('))
+console.log(isValid(')'))
 console.log(isValid('()'))
 console.log(isValid('()[]{}'))
-console.log(isValid('(]'))
+console.log(isValid('(])'))
 console.log(isValid('([)]'))
 console.log(isValid('{[]}'))
 
