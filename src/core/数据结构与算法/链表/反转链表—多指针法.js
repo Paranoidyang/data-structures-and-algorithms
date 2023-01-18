@@ -8,23 +8,36 @@
  */
 
 /**
- * Definition for singly-linked list.
- * function ListNode(val) {
- *     this.val = val;
- *     this.next = null;
- * }
+ * 翻转链表
+ * @param {*} head 头节点
+ * @returns 
  */
-export default function () {
-  function reverseList(head) {
-    let prev = null
-    let current = head
-    while (current !== null) {
-      let next = current.next//记录当前节点的下一个节点
-      current.next = prev//翻转节点指针
-      prev = current//向后移动
-      current = next//最后会是null
-    }
-    return prev
-  };
+function reverseList(head) {
+  let prev = null
+  let current = head
+  while (current !== null) {
+    let next = current.next//记录当前节点的下一个节点
+    current.next = prev//翻转节点指针
+    prev = current//向后移动
+    current = next//最后会是null
+  }
+  return prev
 }
+
+// 测试
+function ListNode(val) {
+  this.val = val;
+  this.next = null;
+}
+
+const a = new ListNode(1)
+const b = new ListNode(2)
+const c = new ListNode(3)
+a.next = b
+b.next = c
+console.log(reverseList(a))
+
+
+
+
 
