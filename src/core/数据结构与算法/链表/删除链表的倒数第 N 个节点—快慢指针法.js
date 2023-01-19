@@ -10,16 +10,9 @@
  * 3、然后，快慢指针一起前进，当快指针前进到最后一个结点处时，两个指针再一起停下来，此时，慢指针所指的位置，就是倒数第 n 个结点的前一个结点。
  */
 
-/**
- * Definition for singly-linked list.
- * function ListNode(val) {
- *     this.val = val;
- *     this.next = null;
- * }
- */
-function ListNode(val) {
+function ListNode(val, next) {
     this.val = val;
-    this.next = null;
+    this.next = next;
 }
 /**
  * @param {ListNode} head
@@ -27,22 +20,14 @@ function ListNode(val) {
  * @return {ListNode}
  */
 function deleteNode(head, n) {
-    let dummy = new ListNode()
-    dummy.next = head
-    let fast = dummy // 初始化快慢指针，均指向dummy
-    let slow = dummy
-    fast.next = head
-    slow.next = head
-    while (n !== 0) {// 快指针闷头走 n 步
-        fast = fast.next
-        n--
-    }
-    while (fast.next) {// 快慢指针一起走
+    let dummyHead = new ListNode(0, head) // 创建虚拟头节点
+    let fast = slow = dummyHead // 初始化快慢指针，均指向dummyHead
+    while (n--) fast = fast.next // 快指针闷头走 n 步，写法等价于下面
+    while (fast.next !== null) { // 快慢指针一起走
         fast = fast.next
         slow = slow.next
     }
-    let target = slow.next// slow为目标节点的前驱节点
-    slow.next = target.next// 删除目标节点
-    return dummy.next
+    slow.next = slow.next.next// 删除目标节点，此时slow节点指向目标节点的前一个节点
+    return dummyHead.next
 };
 
