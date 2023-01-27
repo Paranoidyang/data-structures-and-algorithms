@@ -36,7 +36,7 @@ function fourSumCount(A, B, C, D) {
       for (const a of A) {
             for (const b of B) {
                   const sum = a + b
-                  twoSumMap.set(sum, (twoSumMap.get[sum] || 0) + 1)
+                  twoSumMap.set(sum, (twoSumMap.get(sum) || 0) + 1)
             }
       }
       // 找到如果 0-(c+d) 在map中出现过的话，就把map中key对应的value也就是出现次数统计出来
