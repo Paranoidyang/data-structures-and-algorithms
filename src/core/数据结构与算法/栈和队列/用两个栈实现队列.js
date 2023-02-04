@@ -13,7 +13,7 @@
 
 class myQueue {
   constructor() {
-    this.stack1 = []// 初始化两个栈
+    this.stack1 = []// 初始化两个栈，使用两个数组的栈方法（push, pop） 实现队列
     this.stack2 = []
   }
   // 队尾添加元素
