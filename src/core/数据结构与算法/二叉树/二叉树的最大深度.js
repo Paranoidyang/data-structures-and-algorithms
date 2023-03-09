@@ -46,5 +46,26 @@ function maxdepth(root) {
   return getdepth(root);
 }
 
+/**
+ * 迭代法（层序遍历）
+ * @param {*} root 
+ */
+ function maxdepth(root) {
+  if(!root) return 0
+    let count = 0
+    const queue = [root]
+    while(queue.length) {
+        let size = queue.length
+        /* 层数+1 */
+        count++
+        while(size--) {
+            let node = queue.shift();
+            node.left && queue.push(node.left);
+            node.right && queue.push(node.right);
+        }
+    }
+    return count
+}
+
 // 测试
 console.log(maxdepth(root));
