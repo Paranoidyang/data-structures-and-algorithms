@@ -24,6 +24,7 @@ const root = {
     right: null,
   },
 };
+
 /**
  * 递归法
  * @param {*} root 
@@ -36,21 +37,20 @@ function minDepth(root) {
   return Math.min(minDepth(root.left), minDepth(root.right)) + 1
 }
 
-
 /**
- * 迭代法
+ * 迭代法（层序遍历）
  * @param {*} root 
  */
 function minDepth(root) {
   if(!root) return 0;
     const queue = [root];
-    let dep = 0;
+    let dep = 0; // 记录最小深度
     while(true) {
         let size = queue.length;
         dep++;
         while(size--){
             const node = queue.shift();
-            // 到第一个叶子节点 返回 当前深度 
+            // 当左右孩子都为空的时候，说明是最低点的一层了，退出 
             if(!node.left && !node.right) return dep;
             node.left && queue.push(node.left);
             node.right && queue.push(node.right);
