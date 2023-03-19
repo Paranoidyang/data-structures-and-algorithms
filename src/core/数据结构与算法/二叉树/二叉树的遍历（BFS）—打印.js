@@ -3,7 +3,6 @@
  * BFS（Breadth-First Search）：即广度优先算法
  */
 
-// 二叉树如下：
 const root = {
   val: "A",
   left: {
@@ -23,10 +22,10 @@ const root = {
   }
 };
 /**
- * 广度优先算法实现的二叉树层序遍历
+ * 打印
  * @param {*} root 树的根节点
  */
-function BFS(root) {
+function BFSLog(root) {
   const queue = []// 初始化队列queue
   queue.push(root)
   while (queue.length > 0) {
