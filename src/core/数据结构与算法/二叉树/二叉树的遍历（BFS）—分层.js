@@ -16,7 +16,6 @@
   思路：层序遍历要条件反射出 BFS+队列，衍生问题基本是围绕结果数组做文章。
  */
 
-// 二叉树如下：
 const root = {
   val: "A",
   left: {
@@ -34,32 +33,27 @@ const root = {
       val: "F"
     }
   }
-};
+}
+
 /**
  * 二叉树层序遍历，对结果进行分层
  * @param {*} root 树的根节点
  */
 function levelOrder(root) {
-  const res = []//初始化结果数组
-  if (!root) {//处理边界条件
-    return res
-  }
-  const queue = []//初始化队列queue
-  queue.push(root)//队列第一个元素是根结点
+  const res = []
+  if (!root) return res  // 处理边界条件
+  const queue = [root] // 初始化队列queue，并将根节点入队
   while (queue.length > 0) {
-    const level = []
-    const len = queue.length//缓存刚进入循环时的队列长度，这一步很关键，因为队列长度后面会发生改变
-    for (let i = 0; i < len; i++) {//循环遍历当前层级的结点
-      const top = queue.shift()//取出队列的头部元素
-      level.push(top.val)//将头部元素的值推入 level 数组
-      if (top.left) {//如果当前结点有左孩子，则推入下一层级
-        queue.push(top.left)
-      }
-      if (top.right) {//如果当前结点有右孩子，则推入下一层级
-        queue.push(top.right)
-      }
+    const curLevel = []
+    const len = queue.length // 记录当前层级节点数，这一步很关键，因为队列长度后面会发生改变
+    for (let i = 0; i < len; i++) { // 循环遍历当前层级的结点
+      const top = queue.shift()
+      curLevel.push(top.val) // 将队头元素的值推入 curLevel 数组
+      // 存放当前层下一层的节点
+      if (top.left) queue.push(top.left)
+      if (top.right) queue.push(top.right)
     }
-    res.push(level)//将 level 推入结果数组
+    res.push(curLevel) // 把每一层的结果放到结果数组
   }
   return res
 }
