@@ -11,24 +11,41 @@
  */
 
 function lowestCommonAncestor (root, p, q) {
-  // 使用递归的方法
-  // 需要从下到上，所以使用后序遍历
-  // 1. 确定递归的函数
-  const travelTree = function(root,p,q) {
-      // 2. 确定递归终止条件
-      if(root === null || root === p || root === q) {
-          return root
-      }
-      // 3. 确定递归单层逻辑
-      let left = travelTree(root.left,p,q)
-      let right = travelTree(root.right,p,q)
-      if(left !== null && right !== null) {
-          return root
-      }
-      if(left === null) {
-          return right
-      }
-      return left
-  }
-  return  travelTree(root,p,q)
+  if(root == p || root == q || !root) return root
+  const left = lowestCommonAncestor(root.left, p, q)
+  const right = lowestCommonAncestor(root.right, p, q)
+  if(left && right) return root
+  if(!left && right) return right
+  else if(!right && left) return left
+  else return null
 }
+
+// 测试
+const p = {
+  val: 1,
+  left: null,
+  right: null
+}
+const q = {
+  val: 8,
+  left: null,
+  right: null
+}
+const root = {
+  val: 6,
+  left: {
+    val: 4,
+    left: {
+      val: 3,
+      left: null,
+      right: null
+    },
+    right: p
+  },
+  right: {
+    val: 7,
+    left: null,
+    right: q
+  }
+}
+console.log(lowestCommonAncestor(root, p, q))
