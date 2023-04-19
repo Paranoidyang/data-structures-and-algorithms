@@ -10,13 +10,18 @@
     2、p、q 为不同节点且均存在于给定的二叉树中。
  */
 
+// 使用递归的方法
+// 需要从下到上，所以使用后序遍历
+// 1. 确定递归的函数
 function lowestCommonAncestor (root, p, q) {
-  if(root == p || root == q || !root) return root
+  // 2. 确定递归终止条件
+  if(root === null || root == p || root == q) return root
+  // 3. 确定递归单层逻辑
   const left = lowestCommonAncestor(root.left, p, q)
   const right = lowestCommonAncestor(root.right, p, q)
   if(left && right) return root
-  if(!left && right) return right
-  else if(!right && left) return left
+  if(right && left === null) return right
+  else if(left && right === null) return left
   else return null
 }
 
