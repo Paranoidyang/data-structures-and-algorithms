@@ -11,6 +11,13 @@
  * 
  */
 
+/**
+ * 递归法
+ * @param {*} root 
+ * @param {*} p 
+ * @param {*} q 
+ * @returns 
+ */
  function lowestCommonAncestor (root, p, q) {
   if(root === null) return null
   // 两个节点都小于当前节点，说明公共祖先在左子树，递归左子树
@@ -19,6 +26,23 @@
   if (root.val < p.val && root.val < q.val) return lowestCommonAncestor(root.right, p, q)
   // 其他情况说明 root 的值在 [p, q] 区间，则这个节点就是 p 和 q 的最近公共祖先
   return root
+}
+
+/**
+ * 迭代法
+ * @param {*} root 
+ * @param {*} p 
+ * @param {*} q 
+ */
+function lowestCommonAncestor (root, p, q) {
+  while(root !== null) {
+    if(root.val > p.val && root.val > q.val) {
+      root = root.left 
+    }else if(root.val < p.val && root.val < q.val) {
+      root = root.right
+    }else return root
+  }
+  return null
 }
 
 // 测试
