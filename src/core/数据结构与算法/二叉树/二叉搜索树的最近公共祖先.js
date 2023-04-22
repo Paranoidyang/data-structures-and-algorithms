@@ -12,11 +12,13 @@
  */
 
  function lowestCommonAncestor (root, p, q) {
-  if(root === null || root == p || root == q) return root
-  if((root.val > p.val && root.val < q.val) || (root.val < p.val && root.val > q.val)) return root
-  if(root.val > p.val && root.val > q.val) return lowestCommonAncestor(root.left, p, q)
-  else if(root.val < p.val && root.val < p.val) return lowestCommonAncestor(root.right, p, q)
-  else return null
+  if(root === null) return null
+  // 两个节点都小于当前节点，说明公共祖先在左子树，递归左子树
+  if (root.val > p.val && root.val > q.val) return lowestCommonAncestor(root.left, p, q) 
+  // 两个节点都大于当前节点，说明公共祖先在右子树，递归右子树
+  if (root.val < p.val && root.val < q.val) return lowestCommonAncestor(root.right, p, q)
+  // 其他情况说明 root 的值在 [p, q] 区间，则这个节点就是 p 和 q 的最近公共祖先
+  return root
 }
 
 // 测试
