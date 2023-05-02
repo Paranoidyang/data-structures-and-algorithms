@@ -13,9 +13,9 @@
  */
 
 /**
- * 回溯
- * @param {*} n 
- * @param {*} k 
+ * 组合
+ * @param {*} n 数范围
+ * @param {*} k 个数
  * @returns 
  */
 function combine(n, k) {
