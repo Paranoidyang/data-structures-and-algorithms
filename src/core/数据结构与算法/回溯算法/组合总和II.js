@@ -3,6 +3,8 @@
  * 
  * candidates 中的每个数字在每个组合中只能使用一次。
  * 
+ * 注意：数组 candidates 中可能有重复的元素
+ * 
  * 说明：
  * 1、所有数字都是正整数。
  * 2、解集不能包含重复的组合。
@@ -28,13 +30,13 @@
   let sum = 0 // 单条路径之和
   const used = new Array(candidates.length).fill(false) // 记录元素是否使用过
   candidates.sort((a,b)=>a-b); // 从小到大排序，让其相同的元素都挨在一起
-  const dfs = (candidates, target, index, used) => {
+  const dfs = (candidates, target, startIndex, used) => {
     if(sum === target) {
       result.push([...path]) // 注意保存path的副本，而不是引用
       return
     }
     // 如果本层的 sum+candidates[i] 已经大于target，不进行for循环
-    for(let i = index; i < candidates.length && sum + candidates[i] <= target; i++) {
+    for(let i = startIndex; i < candidates.length && sum + candidates[i] <= target; i++) {
       const num = candidates[i]
       const lastNum = candidates[i - 1]
       // used[i - 1] == true，说明同一树枝candidates[i - 1]使用过
