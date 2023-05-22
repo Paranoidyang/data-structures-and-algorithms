@@ -26,15 +26,15 @@
  * @param {*} s 饼干尺寸集合
  */
 function findContentChildren(g, s) {
-  // 从小到大排序
-  g = g.sort((a, b) => a - b)
-  s = s.sort((a, b) => a - b)
+  // 从大到小排序
+  g = g.sort((a, b) => b-a)
+  s = s.sort((a, b) => b-a)
 
-  let index = s.length - 1 // 饼干尺寸下标
+  let index = 0 // 饼干尺寸下标
   let counter = 0 //满足胃口数量
-  for (let i = g.length - 1; i >= 0; i--) {
-    if (index >= 0 && s[index] >= g[i]) {
-      index--
+  for (let i = 0; i < g.length; i++) {
+    if (g[i] <= s[index]) {
+      index++
       counter++
     }
   }
