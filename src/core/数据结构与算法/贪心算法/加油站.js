@@ -32,3 +32,26 @@
   解释: 
     你不能从 0 号或 1 号加油站出发，因为没有足够的汽油可以让你行驶到下一个加油站。我们从 2 号加油站出发，可以获得 4 升汽油。 此时油箱有 = 0 + 4 = 4 升汽油。开往 0 号加油站，此时油箱有 4 - 3 + 2 = 3 升汽油。开往 1 号加油站，此时油箱有 3 - 3 + 3 = 3 升汽油。你无法返回 2 号加油站，因为返程需要消耗 4 升汽油，但是你的油箱只有 3 升汽油。因此，无论怎样，你都不可能绕环路行驶一周。
  */
+function canCompleteCircuit(gas, cost) {
+  const gasLen = gas.length
+  let start = 0
+  let curSum = 0
+  let totalSum = 0
+
+  for(let i = 0; i < gasLen; i++) {
+      curSum += gas[i] - cost[i]
+      totalSum += gas[i] - cost[i]
+      if(curSum < 0) {
+          curSum = 0
+          start = i + 1
+      }
+  }
+
+  if(totalSum < 0) return -1
+
+  return start
+}
+
+// 测试
+console.log(canCompleteCircuit([1,2,3,4,5], [3,4,5,1,2]))
+console.log(canCompleteCircuit([2,3,4], [3,4,3]))
