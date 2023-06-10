@@ -20,7 +20,15 @@
   解释: 你不需要移除任何区间，因为它们已经是无重叠的了。
  */
 function eraseOverlapIntervals(intervals) {
-
+  intervals.sort((a, b) => a[0] - b[0]) // 按左边界从小到大排序
+  let result = 0
+  for(let i = 1; i < intervals.length; i++) {
+    if(intervals[i][0] < intervals[i - 1][1]) { // 重叠情况
+      result++
+      intervals[i][1] = Math.min(intervals[i][1], intervals[i - 1][1]) // 有重叠，保留右边界小的值，这样才能保证移除区间的最小数量
+    }
+  }
+  return result
 }
 
 // 测试
