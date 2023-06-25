@@ -26,22 +26,40 @@
 
 /**
  * 动态规划实现
+ * 时间复杂度O(N)，空间复杂度O(N)
 * @param {number} n
 * @return {number}
 */
-const climbStairs = function (n) {
-  // 初始化状态数组
-  const f = [];
-  // 初始化已知值
-  f[1] = 1;
-  f[2] = 2;
-  // 动态更新每一层楼梯对应的结果
-  for (let i = 3; i <= n; i++) {
-    f[i] = f[i - 2] + f[i - 1];
+function climbStairs(n) {
+  if (n <= 2) return n // 因为下面直接对dp[2]操作了，防止空指针
+  const dp = [] // 定义dp数组，并初始化
+  dp[1] = 1
+  dp[2] = 2
+  for (let i = 3; i <= n; i++) { // 注意i是从3开始的
+    dp[i] = dp[i - 2] + dp[i - 1]
   }
-  // 返回目标值
-  return f[n];
-};
+  return dp[n] // 返回目标值
+}
+
+/**
+ * 动态规划实现
+ * 时间复杂度O(N)，空间复杂度O(1)
+* @param {number} n
+* @return {number}
+*/
+function climbStairs(n) {
+  if (n <= 2) return n
+  const dp = []
+  dp[1] = 1
+  dp[2] = 2
+  for (let i = 3; i <= n; i++) {
+    const sum = dp[1] + dp[2]
+    // 只需要维护两个数值就可以了，不需要记录整个序列，优化空间复杂度
+    dp[1] = dp[2]
+    dp[2] = sum
+  }
+  return dp[2]
+}
 
 console.log(climbStairs(2), climbStairs(3), climbStairs(4))
 
@@ -64,7 +82,7 @@ const climbStairs1 = function (n) {
 
 /**
  * 递归+记忆化搜索实现
- * 对于一些实用派的面试官来说，“记忆化搜索”和“动态规划”没有区别，它们都能够以不错的效率帮我们达到同样的目的。这种情况下，上面这个答案就足够了。但是还有一部分面试官，比较讲究，善于咀嚼理论概念。他会告诉你记忆化搜索和动态规划是两个东西，这时候就需要提供最上面的动态规划解法了。
+ * 对于一些实用派的面试官来说，“记忆化搜索”和“动态规划”没有区别，它们都能够以不错的效率帮我们达到同样的目的。这种情况下，下面这个答案就足够了。但是还有一部分面试官，比较讲究，善于咀嚼理论概念。他会告诉你记忆化搜索和动态规划是两个东西，这时候就需要提供最上面的动态规划解法了。
 * @param {number} n
 * @return {number}
 */
