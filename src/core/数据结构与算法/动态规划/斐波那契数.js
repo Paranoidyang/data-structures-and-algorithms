@@ -14,11 +14,8 @@
 */
 function fib(n) {
   if (n <= 1) return n
-  // 初始化状态数组
-  const dp = []
-  // 初始化已知值
-  dp[0] = 0
-  dp[1] = 1
+  // 定义dp数组，并初始化
+  const dp = [0, 1]
   for (let i = 2; i <= n; i++) {
     dp[i] = dp[i - 2] + dp[i - 1]
   }
@@ -33,10 +30,11 @@ function fib(n) {
 */
 function fib(n) {
   if (n <= 1) return n
-  // 初始化状态数组
+  // 定义dp数组，并初始化
   const dp = [0, 1]
   for (let i = 2; i <= n; i++) {
     const sum = dp[0] + dp[1]
+    // 只需要维护两个数值就可以了，不需要记录整个序列，优化空间复杂度
     dp[0] = dp[1]
     dp[1] = sum
   }
