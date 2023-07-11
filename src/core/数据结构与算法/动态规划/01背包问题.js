@@ -16,6 +16,7 @@
  */
 function testWeightBagProblem(weight, value, size) {
   // 定义 dp 数组
+  // dp[i][j]：下标0~i的物品，任取放入容量为j的背包中，达到的最大价值
   const len = weight.length,
     dp = Array(len).fill().map(() => Array(size + 1).fill(0));
 
