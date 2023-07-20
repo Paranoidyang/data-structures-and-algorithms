@@ -7,28 +7,25 @@
           （4）执行构造函数内部的代码（给新对象添加属性）。
           （5）如果构造函数显式地返回一个非空对象，则返回该对象；否则，返回刚创建的新对象。
  */
-export default function () {
-  function myNew(fn, ...args) {
-    // 方法1
-    // let obj = object.create(fn.prototype)
-    // 方法2
-    let obj = {}
-    // 将新对象obj关联构造函数的原型
-    obj.__proto__ = fn.prototype
-    // 为obj添加属性
-    let res = fn.call(obj, ...args)
-    if (res && (typeof res === "object" || typeof res === "function")) {
-      return res;
-    } {
-      return obj
-    }
+function myNew(fn, ...args) {
+  // 方法1
+  // let obj = object.create(fn.prototype)
+  // 方法2
+  let obj = {}
+  // 将新对象obj关联构造函数的原型
+  obj.__proto__ = fn.prototype
+  // 为obj添加属性
+  let res = fn.call(obj, ...args)
+  if (res && (typeof res === "object" || typeof res === "function")) {
+    return res;
+  } {
+    return obj
   }
-
-  function Person(name, age) {
-    this.name = name
-    this.age = age
-    // return {a: 1}
-  }
-  console.log(myNew(Person, '小红', 18))
-
 }
+
+function Person(name, age) {
+  this.name = name
+  this.age = age
+  // return {a: 1}
+}
+console.log(myNew(Person, '小红', 18))
