@@ -2,7 +2,7 @@
  * 手写 arr filter 函数，接收一个条件函数，返回一个符合条件的元素集合
  */
 
-
+// 注意：不能使用箭头函数，箭头函数没有自己的this
 Array.prototype.filter1 = function(callback) {
   let _this = this
   const res = []
