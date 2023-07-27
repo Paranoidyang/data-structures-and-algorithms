@@ -1,5 +1,5 @@
 /**
- * 手写沙箱机制
+ * 手写快照沙箱机制
  */
 class SanapShotSandbox {
   constructor() {
@@ -27,6 +27,8 @@ class SanapShotSandbox {
     }
   }
 }
+
+let window = global // vscode编辑器中不存在window
 
 window.city = 'Beijing'
 const sanbox = new SanapShotSandbox()
