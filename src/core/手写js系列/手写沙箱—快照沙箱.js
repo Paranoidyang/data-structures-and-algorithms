@@ -1,11 +1,17 @@
 /**
  * 手写快照沙箱机制
+ * 
+ * 两个重要的问题：
+ *   1、会改变全局window的属性，如果同时运行多个微应用，多个应用同时改写window上的属性， 势必会出现状态混乱，这也就是为什么快照沙箱无法支持多各微应用同时运行的原因。
+ *   2、会通过for(prop in window){}的方式来遍历window上的所有属性，window属性众多，这其实是一件很耗费性能的事情。
+ * 
  */
 class SnapshotSandbox {
   constructor() {
     this.windowSnapshot = {}
     this.modifyPropsMap = {}
   }
+
   active() {
     // 保存window对象上所有属性的值
     for (const prop in window) {
@@ -16,6 +22,7 @@ class SnapshotSandbox {
       window[prop] = this.modifyPropsMap[prop]
     })
   }
+
   inactive() {
     for (const prop in window) {
       if (this.windowSnapshot[prop] !== window[prop]) {

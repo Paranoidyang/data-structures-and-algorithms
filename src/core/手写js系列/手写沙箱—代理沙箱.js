@@ -1,29 +1,34 @@
 /**
  * 手写代理沙箱机制
+ * 
+ * ProxySandbox，完全不存在状态恢复的逻辑，同时也不需要记录属性值的变化，因为所有的变化都是沙箱内部的变化，和window没有关系，window上的属性至始至终都没有受到过影响。
+ * 
+ * 在class的最顶层，通过 = 赋值的属性是实例属性
  */
 class ProxySandBox {
   proxyWindow = {}
   isRunning = false
+
+  constructor(){
+    const fakeWindow = Object.create(null)
+    this.proxyWindow = new Proxy(fakeWindow, {
+      set: (target, prop, value) => {
+        if(this.isRunning) target[prop] = value // 启动时只操作fakeWindow
+      },
+      get: (target, prop) => {
+          return  prop in target ? target[prop] : window[prop]
+      }  
+    })
+  }
+
   active() {
     this.isRunning = true
   }
+
   inactive() {
     this.isRunning = false
   }
-  constructor(){
-    const fakeWindow = Object.create(null)
-    this.proxyWindow = new Proxy(fakeWindow,{
-        set:(target, prop, value, receiver)=>{
-        // 设置时只操作fakeWindow
-            if(this.isRunning){
-                target[prop] = value
-            }
-        },
-        get:(target, prop, receiver)=>{
-            return  prop in target ? target[prop] : window[prop]
-        }
-    })
-  }
+
 }
 
 let window = global // vscode编辑器中不存在window
