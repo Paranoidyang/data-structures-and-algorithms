@@ -10,7 +10,8 @@ class ProxySandBox {
   isRunning = false
 
   constructor(){
-    const fakeWindow = Object.create(null)
+    // 创建一个没有继承任何属性和方法的空对象，保证代理的干净性
+    const fakeWindow = Object.create(null) 
     this.proxyWindow = new Proxy(fakeWindow, {
       set: (target, prop, value) => {
         if(this.isRunning) target[prop] = value // 启动时只操作fakeWindow
