@@ -1,7 +1,7 @@
 /**
  * 手写快照沙箱机制
  */
-class SanapShotSandbox {
+class SnapshotSandbox {
   constructor() {
     this.windowSnapshot = {}
     this.modifyPropsMap = {}
@@ -31,7 +31,7 @@ class SanapShotSandbox {
 let window = global // vscode编辑器中不存在window
 
 window.city = 'Beijing'
-const sanbox = new SanapShotSandbox()
+const sanbox = new SnapshotSandbox()
 console.log('window.city', window.city) //Beijing
 sanbox.active()
 window.city = 'Shenzhen'
