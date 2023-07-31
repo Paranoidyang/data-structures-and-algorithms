@@ -5,43 +5,46 @@
  * 利用map来存储缓存，一个Map对象在迭代时会根据对象中元素的插入顺序来进行，新添加的元素会被插入到map的末尾。
  */
 
-export default function () {
-  class LRUCache {
-    constructor(limit) {
-      this.cache = new Map();
-      this.limit = limit;
-    }
-    get(key) {
-      // key存在，更新位置
-      let value = this.cache.get(key)
-      if (!this.cache.has(key)) { return -1 }
+class LRUCache {
+  constructor(limit) {
+    this.cache = new Map();
+    this.limit = limit;
+  }
+  get(key) {
+    // key存在，更新位置
+    let value = this.cache.get(key)
+    if (!this.cache.has(key)) { return -1 }
+    this.cache.delete(key)
+    this.cache.set(key, value)
+    return value
+  }
+  set(key, value) {
+    // key存在，仅修改值
+    if (this.cache.has(key)) {
       this.cache.delete(key)
       this.cache.set(key, value)
-      return value
-    }
-    set(key, value) {
-      // key存在，仅修改值
-      if (this.cache.has(key)) {
-        this.cache.delete(key)
-        this.cache.set(key, value)
-      } else {
-        this.cache.set(key, value)
-        // cache满了，移除最久没使用的数据，keys()返回的是一个迭代器对象，可以调用next()方法获取第一个键值对
-        if (this.cache.size > this.limit) {
-          let oldestKey = this.cache.keys().next().value
-          this.cache.delete(oldestKey)
-        }
+    } else {
+      this.cache.set(key, value)
+      // cache满了，移除最久没使用的数据，keys()返回的是一个迭代器对象，可以调用next()方法获取第一个键值对
+      if (this.cache.size > this.limit) {
+        console.log(this.cache.keys().next())
+        let oldestKey = this.cache.keys().next().value
+        this.cache.delete(oldestKey)
       }
     }
   }
-
-  let lruCache = new LRUCache(2);
-  lruCache.set("a", 1);
-  lruCache.set("b", 2);
-  console.log('a', lruCache.get("a"));//1，{b: 2, a: 1}
-  lruCache.set("c", 3);//{a: 1, c: 3}
-
-  console.log('a', lruCache.get("a"));//1
-  console.log('b', lruCache.get("b"));//-1
-  console.log('c', lruCache.get("c"));//3
 }
+
+let lruCache = new LRUCache(2);
+lruCache.set("a", 1);
+lruCache.set("b", 2);
+console.log('a', lruCache.get("a"));//1，{b: 2, a: 1}
+lruCache.set("c", 3);//{a: 1, c: 3}
+
+console.log('a', lruCache.get("a"));//1
+console.log('b', lruCache.get("b"));//-1
+console.log('c', lruCache.get("c"));//3
+
+
+
+
