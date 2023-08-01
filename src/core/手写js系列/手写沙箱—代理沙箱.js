@@ -13,10 +13,10 @@ class ProxySandBox {
     // 创建一个没有继承任何属性和方法的空对象，保证代理的干净性
     const fakeWindow = Object.create(null) 
     this.proxyWindow = new Proxy(fakeWindow, {
-      set: (target, prop, value) => {
+      set: (target, prop, value) => { // 一定要用箭头函数，否则获取不到this
         if(this.isRunning) target[prop] = value // 启动时只操作fakeWindow
       },
-      get: (target, prop) => {
+      get(target, prop) {
           return  prop in target ? target[prop] : window[prop]
       }  
     })
