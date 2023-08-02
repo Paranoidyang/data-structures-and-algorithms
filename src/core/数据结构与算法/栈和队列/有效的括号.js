@@ -40,7 +40,7 @@ function isValid(str) {
     '[': ']'
   }
   for (const s of str) {
-    if (s in map) { // 遇到左括号入栈
+    if (map[s]) { // 遇到左括号入栈
       stack.push(s)
       continue
     }
