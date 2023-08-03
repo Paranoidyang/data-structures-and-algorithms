@@ -24,6 +24,7 @@ function sortedSquares(nums) {
 /**
  * 双指针法
  * 时间复杂度O(n)，空间换时间
+ * 思路：数组其实是有序的， 只不过负数平方之后可能成为最大数了。那么数组平方的最大值就在数组的两端
  * @param {*} nums 
  * @returns 
  */

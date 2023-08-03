@@ -53,3 +53,4 @@ function minSubArrayLen(s, nums) {
 
 // 测试
 console.log(minSubArrayLen(7, [2, 3, 1, 2, 4, 3]))
+console.log(minSubArrayLen(11, [1,2,3,4,5]))
