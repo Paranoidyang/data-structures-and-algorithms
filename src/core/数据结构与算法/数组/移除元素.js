@@ -23,31 +23,33 @@
 function removeElement(nums, val) {
   let len = nums.length
   for (let i = 0; i < len; i++) {
-    if (nums[i] === val) {
+    if (nums[i] === val) { // 发现需要移除的元素，就将数组集体向前移动一位
       for (let j = i + 1; j < len; j++) {
         nums[j - 1] = nums[j]
       }
-      i--
-      len--
+      i-- // 因为下标i以后的数值都向前移动了一位，所以i也向前移动一位
+      len-- // 此时数组的大小-1
     }
   }
   return len
 }
 
 /**
- * 快慢指针法
+ * 快慢指针法： 通过一个快指针和慢指针在一个for循环下完成两个for循环的工作
  * 时间复杂度O(n)
  * 空间复杂度O(1)
+ * 
+ * 快指针：寻找新数组的元素 ，新数组就是不含有目标元素的数组
+ * 慢指针：指向更新 新数组下标的位置
  * 
  * @param {*} nums 
  * @param {*} val 
  */
 function removeElement(nums, val) {
-  let slowIndex = 0 //慢指针
+  let slowIndex = 0 // 慢指针
   for (let fastIndex = 0; fastIndex < nums.length; fastIndex++) {
     if (nums[fastIndex] !== val) {
-      // slowIndex是先使用，再++
-      nums[slowIndex++] = nums[fastIndex]
+      nums[slowIndex++] = nums[fastIndex] // slowIndex是先使用，再++
     }
   }
   return slowIndex
