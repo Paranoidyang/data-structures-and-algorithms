@@ -4,7 +4,7 @@
  */
 
 /**
- * 解题分析：pre=null、current、next，遍历链表，向后移动
+ * 解题分析：pre = null、cur、next，遍历链表，向后移动
  */
 
 /**
@@ -14,12 +14,13 @@
  */
 function reverseList(head) {
   let prev = null
-  let current = head
-  while (current !== null) {
-    let next = current.next//记录当前节点的下一个节点
-    current.next = prev//翻转节点指针
-    prev = current//向后移动
-    current = next//最后会是null
+  let curr = head
+  while (curr) {
+    // 先存 -》 翻转 -》 往后移
+    let next = curr.next // 先记录当前节点的下一个节点，避免翻转后丢失
+    curr.next = prev // 翻转节点指针
+    prev = curr // 向后移动
+    curr = next // 最后会是null
   }
   return prev
 }
@@ -36,8 +37,4 @@ const c = new ListNode(3)
 a.next = b
 b.next = c
 console.log(reverseList(a))
-
-
-
-
 
