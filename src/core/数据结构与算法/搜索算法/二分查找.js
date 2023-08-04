@@ -22,7 +22,7 @@ function binarySearch(arr, target, start, end) {
   if (target < mid) {
     return binarySearch(arr, target, start, midIndex - 1)
   } else {
-    return binarySearch(arr, target, start + 1, end)
+    return binarySearch(arr, target, midIndex + 1, end)
   }
 }
 
