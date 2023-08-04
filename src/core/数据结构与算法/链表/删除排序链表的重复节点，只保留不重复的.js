@@ -9,22 +9,11 @@
  */
 
 /**
- * Definition for singly-linked list.
- * function ListNode(val) {
- *     this.val = val;
- *     this.next = null;
- * }
- */
-function ListNode(val) {
-  this.val = val;
-  this.next = null;
-}
-/**
  * 删除有序链表的所有重复节点，只保留不重复的节点
  * @param {*} head 
  */
 function deleteDuplicates(head) {
-  if (!head || !head.next) return  // 极端情况：0个或1个结点，则不会重复，直接返回
+  if (!head || !head.next) return head // 极端情况：0个或1个结点，则不会重复，直接返回
   let dummy = new ListNode()
   dummy.next = head// dummy 永远指向头结点
   let cur = dummy// cur 从 dummy 开始遍历
@@ -41,4 +30,22 @@ function deleteDuplicates(head) {
   return dummy.next // 返回链表的起始结点
 
 }
+
+// 测试
+function ListNode(val) {
+  this.val = val;
+  this.next = null;
+}
+
+const a = new ListNode(1)
+const b = new ListNode(2)
+const c = new ListNode(3)
+const d = new ListNode(3)
+const f = new ListNode(5)
+a.next = b
+b.next = c
+c.next = d
+d.next = f
+
+console.log(deleteDuplicates(a))
 
