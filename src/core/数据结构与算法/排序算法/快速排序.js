@@ -46,5 +46,4 @@ function partition(arr, left, right) {
 }
 
 console.log(quickSort([2, 1, 5, 9, 8]))
-
 console.log(quickSort([2, 3, 4, 1, 4, 1, 5]));
