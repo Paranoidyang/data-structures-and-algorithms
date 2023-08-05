@@ -15,13 +15,13 @@
  */
 
 function reversePrint(head) {
-  let nums = []
-  let node = head
-  while (node !== null) {
-    nums.unshift(node.val)
-    node = node.next
+  const res = []
+  let curr = head
+  while (curr) {
+    res.unshift(curr.val)
+    curr = curr.next
   }
-  return nums
+  return res
 }
 
 // 测试
