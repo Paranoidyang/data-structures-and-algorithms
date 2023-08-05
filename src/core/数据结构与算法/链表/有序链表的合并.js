@@ -12,28 +12,43 @@
  * }
  */
 function ListNode(val) {
-   this.val = val;
-   this.next = null;
+  this.val = val;
+  this.next = null;
 }
 /**
  * 有序链表的合并
- * @param {*} l1 链表1
- * @param {*} l2 链表2
+ * @param {*} l1 链表1头节点
+ * @param {*} l2 链表2头节点
  */
 function mergeTwoLists(l1, l2) {
-   let head = new ListNode()// 定义头结点，确保链表可以被访问到
-   let cur = head// cur 这里就是咱们那根“针”
-   while (l1 && l2) {
-      if (l1.val <= l2.val) { // 如果 l1 的结点值较小
-         cur.next = l1 // 先串起 l1 的结点
-         l1 = l1.next// l1 指针向前一步
-      } else {
-         cur.next = l2 // l2 较小时，串起 l2 结点
-         l2 = l2.next// l2 向前一步
-      }
-      cur = cur.next// “针”在串起一个结点后，也会往前一步
-   }
-   cur.next = l1 !== null ? l1 : l2// 处理链表不等长的情况，因为是有序的，直接串起来即可
-   return head.next// 返回起始结点
+  const dummyNode = new ListNode() // 定义虚拟头结点
+  let curr = dummyNode
+  while (l1 && l2) {
+    if (l1.val <= l2.val) {  // 如果 l1 的结点值较小
+      curr.next = l1  // 先串起 l1 的结点
+      l1 = l1.next // l1 指针向前一步
+    } else {
+      curr.next = l2  // l2 较小时，串起 l2 结点
+      l2 = l2.next // l2 向前一步
+    }
+    curr = curr.next // “针”在串起一个结点后，也会往前一步
+  }
+  curr.next = l1 ? l1 : l2 // 处理链表不等长的情况，因为是有序的，直接串起来即可
+  return dummyNode.next // 返回起始结点
 }
+
+// 测试
+const a1 = new ListNode(1)
+const a2 = new ListNode(2)
+const a4 = new ListNode(4)
+a1.next = a2
+a2.next = a4
+const b1 = new ListNode(1)
+const b3 = new ListNode(3)
+const b4 = new ListNode(4)
+b1.next = b3
+b3.next = b4
+
+console.log(mergeTwoLists(a1, b1).val)
+
 
