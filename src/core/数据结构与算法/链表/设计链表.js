@@ -32,7 +32,7 @@ class MyLinkedList {
     if (index < 0 || index >= this.size) return null
     const dummyNode = new LinkNode(-1, this.head) // 创建虚拟头节点
     let curr = dummyNode
-    while (index-- >= 0) {
+    for (let i = 0; i <= index; i++) {
       curr = curr.next
     }
     return curr
@@ -77,7 +77,7 @@ class MyLinkedList {
       this.addAtTail(val)
       return
     }
-    if (index < 0) {
+    if (index <= 0) {
       this.addAtHead(val)
       return
     }
