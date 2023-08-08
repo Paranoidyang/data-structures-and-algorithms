@@ -30,11 +30,11 @@ function swapPairs(head) {
   // 创建虚拟头节点
   const dummyHead = new LinkNode(-1, head)
   let curr = dummyHead
-  // 偶数个节点时通过curr.next !== null结束循环，奇数个节点时通过curr.next.next !== null结束循环
-  while (curr.next !== null && curr.next.next !== null) {
-    const left = curr.next
-    const right = curr.next.next
-    const next = curr.next.next.next
+  // 偶数个节点时通过curr.next结束循环，奇数个节点时通过curr.next.next结束循环
+  while (curr.next && curr.next.next) {
+    let left = curr.next
+    let right = left.next
+    let next = right.next
     curr.next = right
     right.next = left
     left.next = next
