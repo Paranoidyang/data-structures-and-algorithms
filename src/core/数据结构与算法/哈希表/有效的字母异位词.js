@@ -17,20 +17,20 @@
  * @returns 
  */
 function isAnagram(s, t) {
-  const record = new Array(26).fill(0)
-  const base = 'a'.charCodeAt()
-  // 将第一个字符串中对应字母出现的次数记录在record数组中
-  for (const i of s) {
-    record[i.charCodeAt() - base]++
-  }
-  // 将record中对应索引的数值减1
-  for (const i of t) {
-    record[i.charCodeAt() - base]--
-  }
-  for (const i of record) {
-    if (i !== 0) { // record中存在不为0的数值，则说明不是有效的字母异位词
-      return false
+  const map = {}
+  for (const sItem of s) { // 将第一个字符串中对应字母出现的次数记录在map中
+    if (map[sItem]) {
+      map[sItem]++
+    } else {
+      map[sItem] = 1
     }
+  }
+  for (const tItem of t) {
+    if (!map[tItem]) return false // t中存在s中没有的字母，说明不是有效的字母异位词
+    map[tItem]--
+  }
+  for (const item in map) {
+    if (map[item] !== 0) return false // map中存在不为0的数值，则说明不是有效的字母异位词
   }
   return true
 }
