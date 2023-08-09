@@ -11,25 +11,24 @@
  * 
  * 记住一个结论：几乎所有的求和问题，都可以转化为求差问题。
  */
-export default function () {
-  /**
+
+/**
    * 两数之和
    * @param {*} nums 目标数组
    * @param {*} target 和 
    * @returns 
    */
-  function twoSum(nums, target) {
-    let diffs = new Map()
-    let len = nums.length
-    for (let i = 0; i < len; i++) {
-      if (diffs.has(target - nums[i])) {//判断当前值对应的 target 差值是否存在（是否已遍历过）
-        return [diffs.get(target - nums[i]), i]//若有对应差值，那么答案get！
-      }
-      diffs.set(nums[i], i)//若没有对应差值，则记录当前值
+function twoSum(nums, target) {
+  let diffs = new Map()
+  let len = nums.length
+  for (let i = 0; i < len; i++) {
+    const item = nums[i]
+    if (diffs.has(target - item)) {//判断当前值对应的 target 差值是否存在（是否已遍历过）
+      return [diffs.get(target - item), i]//若有对应差值，那么答案get！
     }
-    return false
+    diffs.set(item, i)//若没有对应差值，则记录当前值
   }
-
-  console.log(twoSum([2, 7, 1, 4], 9))
-
+  return false
 }
+
+console.log(twoSum([2, 7, 1, 4], 9))
