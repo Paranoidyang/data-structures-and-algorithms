@@ -2,20 +2,16 @@
  * 题目描述：利用for循环和递归实现一个深拷贝函数
  */
 
-// 判断是否是对象（不包含函数）
-const isObj = (obj) => typeof obj === 'object' && obj !== null
 function deepCopy(obj) {
-  if (isObj(obj)) { //对象类型
-    const result = Array.isArray(obj) ? [] : {}
-    for (const key in obj) {
-      if (obj.hasOwnProperty(key)) { //只拷贝对象本身的属性，不拷贝其原型上的属性
-        result[key] = isObj(obj[key]) ? deepCopy(obj[key]) : obj[key] //递归复制
-      }
+  const isObj = (obj) => typeof obj === 'object' && obj !== null // 判断是否是对象（不包含函数）
+  if (!isObj(obj)) return obj // 兼容基本类型和function，function的深拷贝没有实际应用场景，lodash中的处理也是直接返回
+  const res = Array.isArray(obj) ? [] : {}
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) { // 只拷贝对象本身的属性，不拷贝其原型上的属性
+      res[key] = isObj(obj[key]) ? deepCopy(obj[key]) : obj[key] // 递归复制
     }
-    return result
-  } else {//兼容基本类型和function，function的深拷贝没有实际应用场景，lodash中的处理也是直接返回
-    return obj
   }
+  return res
 }
 
 // let a = 1
