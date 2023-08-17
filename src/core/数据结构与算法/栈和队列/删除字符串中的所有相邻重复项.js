@@ -18,15 +18,14 @@
  */
 function removeDuplicates(s) {
   const stack = []
-  for (const x of s) {
-    const len = stack.length
-    if (len && stack[len - 1] === x) {
-      stack.pop() // 已入栈的弹出，并continue就可以排除一对相邻且相等的字母
-      continue
+  for (const item of s) {
+    if (item !== stack[stack.length - 1]) { // 与栈顶元素不相同，则入栈
+      stack.push(item)
+    } else { // 相同则出栈
+      stack.pop()
     }
-    stack.push(x)
   }
-  return stack.join('')
+  return stack.join('') // 最终栈里的元素就是结果
 }
 
 // 测试
