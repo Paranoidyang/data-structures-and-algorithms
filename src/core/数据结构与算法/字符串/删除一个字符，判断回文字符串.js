@@ -15,25 +15,8 @@
    * @param {*} str 
    */
 function validPalindrome(str) {
-  const len = str.length
-  // i、j分别为左右指针
-  let i = 0, j = len - 1
-  // 当左右指针均满足对称时，一起向中间前进
-  while (i < j && str[i] === str[j]) {
-    i++
-    j--
-  }
-  // 尝试判断跳过左指针元素后字符串是否回文
-  if (isPalindrome(i++, j)) {
-    return true
-  }
-  // 尝试判断跳过右指针元素后字符串是否回文
-  if (isPalindrome(i, j--)) {
-    return true
-  }
-
   // 工具方法，用于判断字符串是否回文
-  function isPalindrome(start, end) {
+  const isPalindrome = (start, end) => {
     while (start < end) {
       if (str[start] === str[end]) {
         start++
@@ -44,8 +27,15 @@ function validPalindrome(str) {
     }
     return true
   }
-  // 默认返回 false
-  return false
+  const len = str.length
+  let i = 0, j = len - 1 // i、j分别为左右指针
+  while (i < j && str[i] === str[j]) { // 当左右指针均满足对称时，一起向中间前进
+    i++
+    j--
+  }
+  if (isPalindrome(i++, j)) return true // 尝试判断跳过左指针元素后字符串是否回文
+  if (isPalindrome(i, j--)) return true // 尝试判断跳过右指针元素后字符串是否回文
+  return false // 默认返回 false
 }
 
 
