@@ -18,32 +18,32 @@
  */
 
 /**
-   * 前序遍历（打印出结果）
-   * @param {*} root 所有遍历函数的入参都是树的根结点对象
-   * @returns 
-   */
- function preorderTraversal(root) {
+ * 前序遍历（打印出结果）
+ * @param {*} root 所有遍历函数的入参都是树的根结点对象
+ * @returns 
+ */
+function preorderTraversal(root) {
   if (!root) return                            // 确定终止条件
-  console.log('当前遍历的结点值是: ', root.val) // 输出当前遍历的结点值
-  preorderTraversal(root.left)                          // 递归遍历左子树
-  preorderTraversal(root.right)                         // 递归遍历右子树 
+  console.log('当前遍历的结点值是: ', root.val)  // 输出当前遍历的结点值
+  preorderTraversal(root.left)                 // 递归遍历左子树
+  preorderTraversal(root.right)                // 递归遍历右子树 
 }
 
 /**
-   * 前序遍历（遍历结果存入数组）
-   * @param {*} root
-   * @returns 
-   */
- function preorderTraversal(root) {
-    const preorder = (root, res) => {
-      if(!root) return
-      res.push(root.val)
-      preorder(root.left, res)
-      preorder(root.right, res)
-    }
-    const result = []
-    preorder(root, result)
-    return result
+ * 前序遍历（遍历结果存入数组）
+ * @param {*} root
+ * @returns 
+ */
+function preorderTraversal(root) {
+  const preorder = (curr, res) => {
+    if (!curr) return
+    res.push(curr.val)
+    preorder(curr.left, res)
+    preorder(curr.right, res)
+  }
+  const result = []
+  preorder(root, result)
+  return result
 }
 
 // ----------------------中、后序遍历只需要调整下递归代码顺序即可-------------------------
