@@ -37,16 +37,13 @@ const root = {
 };
 
 /**
- * 迭代实现
+ * 迭代法
  * @param {*} root 树的根节点
  */
 function invertTree1(root) {
-  if (!root) {
-    return root
-  }
-  const queue = []
-  queue.push(root)
-  while (queue.length) {
+  if (!root) return root
+  const queue = [root]
+  while (queue.length > 0) {
     const top = queue.shift()
     const left = top.left
     const right = top.right
@@ -58,22 +55,24 @@ function invertTree1(root) {
   }
   return root
 }
+
+// 测试
 console.log('迭代实现', invertTree1(root))
 
 
 /**
- * 递归实现
+ * 递归法
  * @param {*} root 树的根节点
  */
 function invertTree2(root) {
-  if (!root) {
-    return root
-  }
-  let left = invertTree2(root.left)//归交换左孩子的子结点
-  let right = invertTree2(root.right)//递归交换右孩子的子结点
+  if (!root) return root
+  let left = invertTree2(root.left) // 归交换左孩子的子结点
+  let right = invertTree2(root.right) // 递归交换右孩子的子结点
   // 交换左右节点
   root.left = right
   root.right = left
   return root
 }
+
+// 测试
 console.log('递归实现', invertTree2(root))
