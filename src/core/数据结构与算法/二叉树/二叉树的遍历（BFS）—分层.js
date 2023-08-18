@@ -44,17 +44,17 @@ function levelOrder(root) {
   if (!root) return res  // 处理边界条件
   const queue = [root] // 初始化队列queue，并将根节点入队
   while (queue.length > 0) {
-    const curLevel = []
     const len = queue.length // 记录当前层级节点数，这一步很关键，因为队列长度后面会发生改变
+    const curLevel = [] // 存放每一层的节点
     for (let i = 0; i < len; i++) { // 循环遍历当前层级的结点
       const top = queue.shift()
       curLevel.push(top.val) // 将队头元素的值推入 curLevel 数组
-      // 存放当前层下一层的节点
-      if (top.left) queue.push(top.left)
+      if (top.left) queue.push(top.left) // 存放当前层下一层的节点
       if (top.right) queue.push(top.right)
     }
     res.push(curLevel) // 把每一层的结果放到结果数组
   }
   return res
 }
+
 console.log(levelOrder(root))
