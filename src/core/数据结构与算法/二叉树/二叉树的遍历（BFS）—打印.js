@@ -33,9 +33,9 @@ function bfs(root) {
   while (queue.length > 0) {
     const top = queue[0] // 取出队头元素  
     console.log(top.val) //访问当前节点的值
+    queue.shift() // 访问完毕，队头元素出队
     top.left && queue.push(top.left) // 如果左子树存在，左子树入队
     top.right && queue.push(top.right) // 如果右子树存在，右子树入队
-    queue.shift() // 访问完毕，队头元素出队
   }
 }
 
