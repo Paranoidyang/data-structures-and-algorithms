@@ -47,11 +47,12 @@ function invertTree1(root) {
     const top = queue.shift()
     const left = top.left
     const right = top.right
-    left && queue.push(left)
-    right && queue.push(right)
     // 交换左右节点
     top.left = right
     top.right = left
+    // 左右节点依次入队列，进行翻转
+    left && queue.push(left)
+    right && queue.push(right)
   }
   return root
 }
