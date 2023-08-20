@@ -15,18 +15,18 @@
  * @param {*} n 和
  * @returns 
  */
- function combinationSum3(k, n) {
+function combinationSum3(k, n) {
   const path = [] // 单条路径
   const result = [] // 结果集
   let sum = 0 // 单条路径之和
   const dfs = (k, n, startIndex) => {
-    if(sum > n)  return // 剪枝操作
-    if(path.length === k) {
-      if(sum === n) result.push([...path]) // 注意保存path的副本，而不是引用
+    if (sum > n) return // 剪枝操作
+    if (sum === n && path.length === k) { // 注意保存path的副本，而不是引用
+      result.push([...path])
       return
     }
     // for 循环做了剪枝优化：i <= 9 ——> i <= 9 - (k - path.length) + 1
-    for(let i = startIndex; i <= 9 - (k - path.length) + 1; i++) {
+    for (let i = startIndex; i <= 9 - (k - path.length) + 1; i++) {
       path.push(i) // 处理节点
       sum += i // 同时计算总和
       dfs(k, n, i + 1) // 递归
