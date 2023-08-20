@@ -21,20 +21,20 @@
 function combine(n, k) {
   const path = [] // 单条路径
   const result = [] // 结果集
-  const backtracking = (n, k, startIndex) => {
-    if(path.length === k) {
+  const dfs = (n, k, startIndex) => {
+    if (path.length === k) {
       result.push([...path]) // 注意保存path的副本，而不是引用
       return
     }
     // 这一行代码可以进行剪枝优化：i <= n ——> i <= n - (k - path.length) + 1
     // k - path.length 是剩下还需要取的个数
-    for(let i = startIndex; i <= n; i++) {
+    for (let i = startIndex; i <= n; i++) {
       path.push(i) // 处理节点
-      backtracking(n, k, i + 1) // 递归
+      dfs(n, k, i + 1) // 递归
       path.pop() // 回溯，撤销处理的节点
     }
   }
-  backtracking(n, k, 1)
+  dfs(n, k, 1)
   return result
 }
 
