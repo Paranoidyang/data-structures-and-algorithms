@@ -24,26 +24,27 @@
  * @param {*} target 目标整数
  * @returns 
  */
- function combinationSum2(candidates, target) {
+function combinationSum2(candidates, target) {
   const path = [] // 单条路径
   const result = [] // 结果集
   let sum = 0 // 单条路径之和
   const used = new Array(candidates.length).fill(false) // 记录元素是否使用过
-  candidates.sort((a,b)=>a-b); // 从小到大排序，让其相同的元素都挨在一起
+  candidates.sort((a, b) => a - b); // 从小到大排序，让其相同的元素都挨在一起
   const dfs = (candidates, target, startIndex, used) => {
-    if(sum === target) {
+    if (sum > target) return
+    if (sum === target) {
       result.push([...path]) // 注意保存path的副本，而不是引用
       return
     }
     // 如果本层的 sum+candidates[i] 已经大于target，不进行for循环
-    for(let i = startIndex; i < candidates.length && sum + candidates[i] <= target; i++) {
+    for (let i = startIndex; i < candidates.length; i++) {
       const num = candidates[i]
       const lastNum = candidates[i - 1]
       // used[i - 1] == true，说明同一树枝candidates[i - 1]使用过
-      // used[i - 1] == false，说明同一树层candidates[i - 1]使用过
-      // 要对同一树层使用过的元素进行跳过
-      if(i > 0 && num === lastNum && used[i - 1] === false) continue
-      path.push(num) 
+      // used[i - 1] == false，说明同一树层candidates[i - 1]使用过，即回溯之后又用到了相同的元素
+      // 要对同一树层使用过的元素进行跳过（树枝不用去重，树层才需要去重）
+      if (i > 0 && num === lastNum && used[i - 1] === false) continue
+      path.push(num)
       used[i] = true
       sum += num
       dfs(candidates, target, i + 1, used) // 递归，和39.组合总和的区别，这里是i+1，每个数字在每个组合中只能使用一次
@@ -57,5 +58,5 @@
 }
 
 // 测试
-console.log(combinationSum2([10,1,2,7,6,1,5], 8))
-console.log(combinationSum2([2,5,2,1,2], 5))
+console.log(combinationSum2([10, 1, 2, 7, 6, 1, 5], 8))
+console.log(combinationSum2([2, 5, 2, 1, 2], 5))
