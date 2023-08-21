@@ -13,29 +13,27 @@
  * 
  */
 
- /**
-   * 返回该数组所有可能的子集
-   * @param {*} nums 
-   */
- function subsets(nums) {
+/**
+  * 返回该数组所有可能的子集
+  * @param {*} nums 
+  */
+function subsets(nums) {
   const path = [], result = [], len = nums.length
-  const dfs = (nums) => {
+  const dfs = (nums, startIndex) => {
     result.push([...path])
-    if(path.length === len) { // 终止条件可以不加
-      return
-    }
-    for(let i = 0; i < nums.length; i++) {
+    if (startIndex >= len) return // 终止条件可以不加，不会无限递归，因为每次递归的下一层就是从i+1开始的，当startIndex >= len时，for循环也不会执行，最后也是return
+    for (let i = startIndex; i < len; i++) {
       path.push(nums[i])
-      dfs(nums.slice(i + 1))
+      dfs(nums, i + 1)
       path.pop()
     }
   }
-  dfs(nums)
+  dfs(nums, 0)
   return result
- }
+}
 
 //  测试
- console.log(subsets([1, 2, 3]))
+console.log(subsets([1, 2, 3]))
 
 
 
