@@ -30,7 +30,7 @@ function combinationSum2(candidates, target) {
   let sum = 0 // 单条路径之和
   const used = new Array(candidates.length).fill(false) // 记录元素是否使用过
   candidates.sort((a, b) => a - b); // 从小到大排序，让其相同的元素都挨在一起
-  const dfs = (candidates, target, startIndex, used) => {
+  const dfs = (candidates, startIndex) => {
     if (sum > target) return
     if (sum === target) {
       result.push([...path]) // 注意保存path的副本，而不是引用
@@ -47,13 +47,13 @@ function combinationSum2(candidates, target) {
       path.push(num)
       used[i] = true
       sum += num
-      dfs(candidates, target, i + 1, used) // 递归，和39.组合总和的区别，这里是i+1，每个数字在每个组合中只能使用一次
+      dfs(candidates, i + 1) // 递归，和39.组合总和的区别，这里是i+1，每个数字在每个组合中只能使用一次
       path.pop() // 回溯，撤销处理的节点
       used[i] = false // 回溯之后，使用状态也要恢复
       sum -= num // 回溯之后，总和也要相应减去
     }
   }
-  dfs(candidates, target, 0, used)
+  dfs(candidates, 0)
   return result
 }
 
