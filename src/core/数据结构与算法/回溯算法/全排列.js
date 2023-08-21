@@ -11,24 +11,24 @@
  * @param {*} nums 
  * @returns 
  */
-function permute(nums) {
-  const path = [], result = [], len = nums.length
-  const dfs = (nums) => {
-    if(path.length === len) { // 收集结果
-      result.push([...path])
-      return
-    }
-    for(let i = 0; i < nums.length; i++) {
-      path.push(nums[i])
-      const copyNums = [...nums]
-      copyNums.splice(i, 1) // 将用过的元素剔除
-      dfs(copyNums)
-      path.pop()
-    }
-  }
-  dfs(nums)
-  return result
-}
+// function permute(nums) {
+//   const path = [], result = [], len = nums.length
+//   const dfs = (nums) => {
+//     if(path.length === len) { // 收集结果
+//       result.push([...path])
+//       return
+//     }
+//     for(let i = 0; i < nums.length; i++) {
+//       path.push(nums[i])
+//       const copyNums = [...nums]
+//       copyNums.splice(i, 1) // 将用过的元素剔除
+//       dfs(copyNums)
+//       path.pop()
+//     }
+//   }
+//   dfs(nums)
+//   return result
+// }
 
 /**
  * 方法二：用used标识是否用过
@@ -39,12 +39,12 @@ function permute(nums) {
   const path = [], result = [], len = nums.length
   const used = new Array(len).fill(false) // 标识是否已经用过
   const dfs = () => {
-    if(path.length === len) { // 收集结果
+    if (path.length === len) { // 收集结果
       result.push([...path])
       return
     }
-    for(let i = 0; i < nums.length; i++) {
-      if(used[i]) continue // 用过直接跳过
+    for (let i = 0; i < nums.length; i++) {
+      if (used[i]) continue // 用过直接跳过
       path.push(nums[i]) // 如果没用过，放入路径数组，打上标识
       used[i] = true
       dfs() // 递归
