@@ -15,24 +15,20 @@
  * 
  */
 
- /**
-   * 返回该数组所有可能的子集
-   * @param {*} nums 
-   */
- function subsets2(nums) {
+/**
+  * 返回该数组所有可能的子集
+  * @param {*} nums 
+  */
+function subsets2(nums) {
   const path = [], result = [], len = nums.length
   const used = new Array(len).fill(false) // 标记元素是否使用过
   nums.sort((a, b) => a - b)
   const dfs = (nums, startIndex) => {
     result.push([...path])
-    if(path.length === len) { // 终止条件可以不加
-      return
-    }
-    for(let i = startIndex; i < nums.length; i++) {
+    if (startIndex >= len) return // 终止条件可以不加
+    for (let i = startIndex; i < len; i++) {
       // 去重，树枝上相等还没回溯，前一个为true，如果前一个为false，说明是树层上的情况
-      if(i > 0 && nums[i] === nums[i - 1] && used[i - 1] === false) { 
-        continue
-      }
+      if (i > 0 && nums[i] === nums[i - 1] && used[i - 1] === false) continue
       path.push(nums[i])
       used[i] = true
       dfs(nums, i + 1)
@@ -42,11 +38,11 @@
   }
   dfs(nums, 0)
   return result
- }
+}
 
 //  测试
- console.log(subsets2([1, 2, 2]))
- console.log(subsets2([0]))
+console.log(subsets2([1, 2, 2]))
+console.log(subsets2([0]))
 
 
 
